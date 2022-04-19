@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/navbar::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <div class="card mt-2 mr-5">
+        <div class="card-body">
+            <h1 class="text-center mt-1">Add Hospital</h1>
+
+			<div  th:if="${session.msg}"  id="msg" class="container" style="text-align: center; width: 500px;margin-left: auto;margin-right: auto;" >
+				<div th:classappend="${'alert-'+ session.msg.type}" class="alert" role="alert" >
+					<span th:text="${session.msg.message}"></span>
+				</div>
+            	<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+			</div>
+
+            <div class="container-fluid mt-3">
+                
+                   <!--  <div class="col-md-10 offset-md-1"> -->
+                        <form id="addHospital" th:action="@{/admin/postHospital}" class="mt-3" method="POST" enctype="multipart/form-data">
+
+							<div class="row">
+								<div class="col">
+									<div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input type="text" id="h_name" name="h_name" placeholder="Enter Hospital Name" class="form-control"  required
+												oninvalid="this.setCustomValidity('Please Enter Hospital Name')"
+												oninput="setCustomValidity('')">
+	                            	</div>
+	
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input type="email" id="h_email" name="h_email" placeholder="Enter Hospital email" class="form-control"  required
+												oninvalid="this.setCustomValidity('Please Enter Hospital Email')"
+												oninput="setCustomValidity('')">
+		                            </div>
+	
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input type="password" id="h_password" name="h_password" placeholder="Enter Hospital password" class="form-control"  required
+												oninvalid="this.setCustomValidity('Please Enter Password For Hospital')"
+												oninput="setCustomValidity('')">
+		                            </div>
+	                            
+		                             <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input type="text" id="h_contact" name="h_contact" placeholder="Enter Hospital contact" class="form-control"  required
+												oninvalid="this.setCustomValidity('Please Enter Hospital Contact')"
+												oninput="setCustomValidity('')">
+		                            </div>
+	
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input type="text" id="emergency_contact" name="emergency_contact" placeholder="Enter Emergency Contact" class="form-control"  required
+												oninvalid="this.setCustomValidity('Please Enter Hospital Emergency Contact')"
+												oninput="setCustomValidity('')">
+		                            </div>
+	                            
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input type="date" id="established_date" name="established_date" class="form-control"  required
+												oninvalid="this.setCustomValidity('Please Enter Hospital Established Year')"
+												oninput="setCustomValidity('')">
+		                            </div>
+								</div>
+	                            
+	                            <div class="col">
+	                            	<div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input type="text" id="certified_by" name="certified_by" placeholder="Hospital Certified By" class="form-control"  required
+												oninvalid="this.setCustomValidity('Hospital Certified By')"
+												oninput="setCustomValidity('')">
+	                           		</div>
+	                            
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input type="text" id="fax" name="fax" placeholder="Enter Hospital Fax No." class="form-control"  required
+												oninvalid="this.setCustomValidity('Please Enter Hospital Fax No.')"
+												oninput="setCustomValidity('')">
+		                            </div>
+		                            
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input type="text" id="gpo_box" name="gpo_box" placeholder="Enter Hospital GPO-BOX No." class="form-control"  required
+												oninvalid="this.setCustomValidity('Please Enter Hospital Gpo-Box')"
+												oninput="setCustomValidity('')">
+		                            </div>
+		                            
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input type="text" id="address" name="address" placeholder="Enter Hospital Full Address" class="form-control"  required
+												oninvalid="this.setCustomValidity('Please Enter Hospital Address')"
+												oninput="setCustomValidity('')">
+		                            </div>
+		                            
+		                            <div class="form-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                    <input type="file" id="image" name="image" class="form-control">
+		                                </div>
+		                            </div>
+		
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-search"></i>
+		                                    </div>
+		                                </div>
+		                                <select name="city" id="city" class="form-control font-weight-bold text-uppercase"  required
+												oninvalid="this.setCustomValidity('Please Enter City Name of Hospital.')"
+												oninput="setCustomValidity('')">
+		                                    <option selected disabled>Select Hospital Permanent City...</option>
+		                                    <option th:each="n : ${city}" th:value="${n.getId()}">
+		                                        <span th:text="${n.getName()}"></span>
+		                                    </option>
+		                                </select>
+		                            </div>
+	                            </div>
+	                         
+	                         </div>   
+	                            
+	                         <div class="form-group mt-4">
+                                <textarea name="h_description" id="h_description" class="form-control" rows="5"></textarea>
+                            </div>
+	                            
+                            <div class="container text-center mt-4">
+                                <button type="submit" class="btn btn-outline-primary">Add Hospital</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="reset" class="btn btn-outline-danger">Clear</button>
+                            </div>
+
+                        </form>
+                   <!--  </div> -->
+               
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+    	
+    	var msg = document.getElementById("msg");
+    	
+    	let intervalId = setTimeout(hide, 3000);
+    	
+    	function hide(){
+    		msg.style.display = 'none';
+    		
+    	}
+    	
+    	clearTimeout(intervalID);
+    	
+    </script>
+    
+</section>
+</body>
+</html>

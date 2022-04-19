@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="hospital/navbar::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+	<section>
+		<div class="card mt-1 mr-5">
+			<div class="card-body">
+				<h1 class="text-center mt-1">Add Doctor in Service</h1>
+				<input type="hidden" id="hId" name="hId" th:value="${hId}" />
+
+				<div th:if="${session.msg}" id="msg" class="container"
+					style="text-align: center; width: 500px; margin-left: auto; margin-right: auto;">
+					<div th:classappend="${'alert-'+ session.msg.type}" class="alert"
+						role="alert">
+						<span th:text="${session.msg.message}"></span>
+					</div>
+					<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+				</div>
+
+				<div class="container-fluid mt-2">
+
+					<form id="addDoctor" th:action="@{/hospital/postDoctor}"
+						class="mt-3" method="POST" enctype="multipart/form-data">
+
+						<div class="row">
+							<div class="col">
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input type="number" id="nmc_no" name="nmc_no"
+										placeholder="Enter Doctor NMC_NO" class="form-control" required
+												oninvalid="this.setCustomValidity('Please Enter Doctor NMC No.')"
+												oninput="setCustomValidity('')">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input type="text" id="d_name" name="d_name"
+										placeholder="Enter Doctor Name" class="form-control"
+										 required
+												oninvalid="this.setCustomValidity('Please Enter Doctor Name')"
+												oninput="setCustomValidity('')">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input type="email" id="d_email" name="d_email"
+										placeholder="Enter Doctor email" class="form-control" required
+												oninvalid="this.setCustomValidity('Please Enter Doctor Email')"
+												oninput="setCustomValidity('')">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input type="text" id="d_contact" name="d_contact"
+										placeholder="Enter Doctor contact" class="form-control" required
+												oninvalid="this.setCustomValidity('Please Enter Doctor Contact')"
+												oninput="setCustomValidity('')">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="d_gender"
+											id="d_gender" value="male" required
+												oninvalid="this.setCustomValidity('Please Enter Doctor Gender')"
+												oninput="setCustomValidity('')"> <label
+											class="form-check-label" for="male"> Male </label>
+									</div>
+
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="d_gender"
+											id="d_gender" value="female"> <label
+											class="form-check-label" for="female"> Female </label>
+									</div>
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input onfocus="(this.type='date')" onblur="(this.type='text')"
+										type="text" id="dateofbirth" name="dateofbirth"
+										placeholder="Date of Birth (mm/dd/yyyy)" class="form-control" 
+										required
+												oninvalid="this.setCustomValidity('Please Enter Doctor Date of Birth')"
+												oninput="setCustomValidity('')">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input type="text" id="specialty" name="specialty"
+										placeholder="Speciality in Common Field" class="form-control" required
+												oninvalid="this.setCustomValidity('Please Enter Doctor Speciality')"
+												oninput="setCustomValidity('')">
+								</div>
+
+							</div>
+
+							<div class="col">
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input type="text" id="qualification" name="qualification"
+										placeholder="Qualification UpTo" class="form-control" required
+												oninvalid="this.setCustomValidity('Please Enter Doctor Qualification')"
+												oninput="setCustomValidity('')">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input type="number" id="yearOfExperience"
+										name="yearOfExperience" placeholder="Year Of Experience"
+										class="form-control" required
+												oninvalid="this.setCustomValidity('Please Enter Doctor Year of Experience')"
+												oninput="setCustomValidity('')">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input type="text" id="address" name="address"
+										placeholder="Enter Doctor Full Address" class="form-control" required
+												oninvalid="this.setCustomValidity('Please Enter Doctor Address')"
+												oninput="setCustomValidity('')">
+								</div>
+
+								<div class="form-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+										<input type="file" id="profile" name="profile"
+											class="form-control" >
+									</div>
+								</div>
+
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-search"></i>
+										</div>
+									</div>
+									<select name="city" id="city"
+										class="form-control font-weight-bold text-uppercase" required
+												oninvalid="this.setCustomValidity('Please Enter Doctor City')"
+												oninput="setCustomValidity('')">
+										<option selected value="" disabled>Select Doctor
+											Permanent City...</option>
+										<option th:each="n : ${city}" th:value="${n.getId()}">
+											<span th:text="${n.getName()}"></span>
+										</option>
+									</select>
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-search"></i>
+										</div>
+									</div>
+									<select name="service" id="service"
+										class="form-control font-weight-bold text-uppercase" required
+												oninvalid="this.setCustomValidity('Please Allocate Doctor to Service')"
+												oninput="setCustomValidity('')">
+										<option selected value="" disabled>Select your
+											Service...</option>
+										<option th:each="n : ${hospitalRoomService}"
+											th:value="${n.getId()}"><span
+												th:text="${n.getS_name()}"></span>
+										</option>
+									</select>
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-search"></i>
+										</div>
+									</div>
+									<select name="room" id="room"
+										class="form-control font-weight-bold text-uppercase" required
+												oninvalid="this.setCustomValidity('Please Allocate Doctor to Room')"
+												oninput="setCustomValidity('')">
+										<option selected value="" disabled>Select your
+											Room...</option>
+									</select>
+								</div>
+
+							</div>
+
+						</div>
+
+						<div class="form-group mt-4">
+							<textarea name="d_info" id="d_info" class="form-control" rows="3"></textarea>
+						</div>
+
+						<div class="container text-center mt-4">
+							<button type="submit" class="btn btn-outline-primary">Add
+								Doctor</button>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<button type="reset" class="btn btn-outline-danger">Clear</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			$(document)
+					.ready(
+							function() {
+
+								$("#service").on('change', function(event) {
+									const serviceId = this.value;
+									const hosId = $("#hId").val();
+									$("#room").html(""+ '<option selected value="" disabled >Select your Room...' + '</option>' + "")
+									ajaxPost(serviceId, hosId);
+
+								});
+
+								function ajaxPost(serId, hId){
+									$.ajax({
+												type : "GET",
+												contentType : "application/json",
+												url : "http://localhost:8181/findRoomByServiceId/"
+														+ serId + "/" + hId,
+												success : function(result) {
+													if (result.list.length > 0) {
+													
+													result.list.map((obj) => {
+																
+															return	$("#room")
+																		.append(
+																				""+ '<option value="'+ obj.id +'" >'
+																						+ obj.r_number
+																						+ ' --- '
+																						+ (obj.r_name)
+																						+ '</option>' + "");
+															})
+													}
+
+												},
+												error : function(e) {
+													alert("Error!")
+													console.log("ERROR: ", e);
+												}
+											});
+								}
+
+								
+								let intervalId = setTimeout(hide, 3000);
+
+								function hide() {
+									$('#msg').css('display','none');
+								}
+
+								/* $("#addDoctor").submit(function (event){
+								    event.preventDefault();
+
+								    fetch("http://localhost:8181/saveDoctor",{
+								        method: "POST",
+								        body: JSON.stringify({
+								            d_name : $("#doctor").val(),
+								            d_email : $("#email").val(),
+								            d_contact : $("#contact").val(),
+								            d_gender: $("input[name='gender']:checked").val(),
+								            city: {id: $("#city").val()},
+								            room: {id: $("#room").val()}
+								        }),
+								        headers: {
+								            "Content-type": "application/json; charset=UTF-8"
+								        }
+								    }).then(response => response.json()).then(json =>
+								        fetch("http://localhost:8181/saveHSD", {
+								            method: "POST",
+								            body: JSON.stringify({
+								                hospital: {id : 2},
+								                service: {id: $("#service").val()},
+								                doctor: {id: json.id}
+								            }),
+								            headers: {
+								                "Content-type": "application/json; charset=UTF-8"
+								            }
+								        }).then(res => res.json()).then(data =>{
+								            console.log(data);
+								            $("#addDoctor").trigger('reset');
+								        }).catch(e=>{
+								            console.log("Save HSD error",e)
+								        })
+								    ).catch(e=>{
+								        console.log("Save Doctor Error", e)
+								    })
+								}) */
+
+							})
+		</script>
+
+	</section>
+</body>
+</html>

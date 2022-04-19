@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="hospital/navbar::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="card mt-5 mr-5">
+			<div class="card-body">
+				<h1 class="text-center">Room's Details</h1>
+				<table class="table mt-4">
+					<thead>
+						<tr>
+							<th scope="col">ID</th>
+							<th scope="col">Room No.</th>
+							<th scope="col">Room Name</th>
+							<th scope="col">Service</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${rooms}" th:each="room : ${rooms}">
+							<th scope="row" th:text="${room.id}">1</th>
+							<td th:text="${room.r_number}"></td>
+							<td th:text="${room.r_name}"></td>
+							<td th:if="${room.service}" th:text="${room.service.s_name}"></td>
+							<td th:unless="${room.service}" >--------</td>
+							<td><a th:href="@{'/hospital/room/'+${room.id}}"><button
+										class="btn btn-primary btn-sm">Edit</button></a>
+								<a
+								th:href="@{'/hospital/deleteRoom/'+${room.id}}"><button
+										class="btn btn-danger btn-sm">Delete</button></a></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li th:if="${currentPage != 0}" class="page-item"><a
+							class="page-link"
+							th:href="@{'/hospital/viewRoom/'+${currentPage-1}}" href="#">Previous</a></li>
+						<li th:classappend="${currentPage==i-1?'active': ''}"
+							th:each="i : ${#numbers.sequence(1, totalPages)}"
+							class="page-item"><a class="page-link"
+							th:href="@{'/hospital/viewRoom/'+${i-1}}" href="#"><span
+								th:text="${i}"></span></a></li>
+						<li th:if="${currentPage+1 != totalPages}" class="page-item"><a
+							class="page-link"
+							th:href="@{'/hospital/viewRoom/'+${currentPage+1}}" href="#">Next</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

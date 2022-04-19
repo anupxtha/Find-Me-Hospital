@@ -1,0 +1,372 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Rokkitt&family=Rozha+One&family=Saira&display=swap");
+:root {
+  --navbar_height: 60px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fffafa;
+  font-family: "Saira", sans-serif;
+  overflow-x: hidden; 
+}
+
+/* Navbar Css Style start */
+header {
+  background-color: #f5f2f3;
+}
+
+header .navbar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  font-family: "Saira", sans-serif;
+  height: var(--navbar_height);
+}
+
+header ul {
+  list-style-type: none;
+  display: flex;
+  width: calc(100% - var(--navbar_title_width));
+  justify-content: space-between;
+  margin-right: 2rem;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: black;
+}
+
+.navbar #title {
+  margin-left: 2.2rem;
+  font: bold 30px "Rokkitt", sans-serif;
+}
+
+.navbar li {
+  font-size: 18px;
+  letter-spacing: 0.135em;
+}
+
+.navbar a:hover {
+  color: teal;
+}
+
+.navbar .active {
+  background-color: cadetblue;
+  padding: 4px 8px;
+  color: white;
+  border-radius: 5px;
+}
+
+.navbar .active:hover {
+  background-color: rgb(4, 103, 106);
+  color: white;
+}
+
+.heading_section {
+  background-image: url(../assets/heading_homepage.jpg);
+  height: calc(100vh - 40px - var(--navbar_height));
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.heading .heading_card {
+  position: relative;
+  top: -70px;
+}
+
+.heading .heading_card_section {
+  background-color: #4d72d0;
+  border-radius: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  padding: 30px 50px;
+  height: 140px;
+}
+
+.heading .input-field {
+  background-color: #fff;
+  width: 20rem;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  height: 85%;
+}
+
+.input-field input {
+  outline: none;
+  width: 80%;
+  height: 100%;
+  padding: 20px 25px;
+  border: none;
+  font: 300 1.2rem "Roboto", sans-serif;
+  letter-spacing: 0.1em;
+  border-radius: 5px;
+}
+
+.input-field .input-icon {
+  font-size: 2.5rem;
+  margin-left: 10px;
+}
+
+.input-field .icon {
+  background-color: rgb(0, 0, 0);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 1.5rem;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.btn-book {
+  background-color: #5bc198;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font: normal 2rem "Roboto", sans-serif;
+  color: white;
+  width: 17rem;
+  height: 85%;
+  border-radius: 10px;
+}
+
+.services {
+  display: flex;
+  justify-content: space-around;
+}
+
+.services .services_section {
+  display: flex;
+}
+
+.services_section .services_icon {
+  margin-right: 10px;
+}
+
+.services_section .services_icon img {
+  width: 80px;
+  height: 80px;
+}
+
+.services .services_info {
+  padding-top: 6px;
+}
+
+.services .services_info .service_title {
+  font: bold 24px "Saira", sans-serif;
+  letter-spacing: 0.13em;
+}
+
+.services .service_subtitle {
+  font: normal 18px "Roboto", sans-serif;
+  letter-spacing: 0.155em;
+}
+
+.card-detail {
+  width: 80%;
+  margin: 40px auto;
+  display: flex;
+  padding: 40px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.card-detail img {
+  height: 40rem;
+}
+
+.card-detail .detail {
+  background-color: #f5f9fe;
+  padding: 35px 30px 35px 50px;
+}
+
+.card-detail .detail .title {
+  letter-spacing: 0.14rem;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.card-detail .detail .content {
+  padding-top: 20px;
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: 0.155em;
+}
+
+.card-detail .hospital-status {
+  padding-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 4rem;
+}
+
+.btn-general {
+  width: 100%;
+  text-align: center;
+  border-radius: 5px;
+  padding: 15px;
+  vertical-align: middle;
+}
+
+.btn-general .number {
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+  letter-spacing: 0.105em;
+  font-size: 24px;
+}
+
+.btn-general:not(.number) {
+  font: normal 20px "Roboto", sans-serif;
+  line-height: 28px;
+  letter-spacing: 0.105em;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.btn1 {
+  background-color: #e3e9fe;
+}
+
+.btn2 {
+  background-color: #d6ffd6;
+}
+
+.btn3 {
+  background: #f4e0b7;
+}
+
+.btn4 {
+  background: #dbd8d8;
+}
+.service_provided {
+  background: #f4f7fc;
+}
+
+.service_provided .heading {
+  padding: 40px 20px 30px 10%;
+}
+.service_provided .heading span {
+  font-family: "Roboto", sans-serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  color: #001eb9;
+}
+
+.service_provided .heading h3 {
+  margin: 10px 0;
+  font-family: "Rozha One", sans-serif;
+  font-size: 40px;
+  letter-spacing: 0.015em;
+}
+.service_provided .image-slider {
+  display: grid;
+  grid-template-columns: 10% repeat(3, 1fr) 10%;
+  align-items: center;
+}
+
+.service_provided .left,
+.service_provided .right {
+  margin-left: 3rem;
+  background-color: #aac69b;
+  color: #f4f7fc;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 60px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.service_provided .left:hover,
+.service_provided .right:hover {
+  background-color: #5bc198;
+}
+
+.service_provided.hospital {
+  background-color: #fffdfd;
+}
+
+.footer_top {
+  background-color: #fffafa;
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr;
+  gap: 0 100px;
+  align-items: center;
+  /* margin-top: 30px; */
+  padding: 0 40px 40px 40px;
+}
+
+.footer_top img {
+  width: 100px;
+  height: 100px;
+}
+
+.footer_top .content {
+  font-family: "Saira";
+  font-size: 24px;
+  text-align: center;
+}
+
+.social_media {
+  display: flex;
+  justify-content: space-between;
+  font-size: 30px;
+}
+
+/* .social_icon {
+    background-color: #4d72d0;
+  } */
+.social_media .icon {
+  background-color: #001eb9;
+  width: 60px;
+  height: 60px;
+  color: white;
+  text-align: center;
+  line-height: 60px;
+  border-radius: 50%;
+}
+
+.about {
+  justify-self: flex-end;
+}
+
+.about .aboutus {
+  margin-top: 10px;
+}
+
+.aboutus span {
+  margin: 0 10px;
+}
+
+.about a {
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+}
+
+.footer_bottom {
+  background-color: #e5e5e5;
+  height: 80px;
+  font: bold 24px "Rokkitt", sans-serif;
+  line-height: 80px;
+  text-align: center;
+  letter-spacing: 0.18em;
+}
+
+
+
+

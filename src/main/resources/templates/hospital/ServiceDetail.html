@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="hospital/navbar::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="card mt-4 mr-5">
+			<div class="card-body">
+				<div class="container text-center">
+					<img style="width: 300px; height: 300px; border-radius: 50%;" class="img-avatar" src=""
+						th:src="@{'/services/'+${service.s_image}}"
+						th:alt="${service.s_name}" />
+					<h1 class="text-center" th:text="${service.s_name}"></h1>
+				</div>
+				<div class="row justify-content-center">
+					<div class="mt-5 col-3">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Service Id : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									 <span th:text="${service.id}"></span></th>
+								</tr>
+							</thead>
+						</table>
+
+					</div>
+				</div>
+
+				<textarea th:text="${service.s_description}" name="s_description"
+					id="s_description" class="form-control" rows="5" disabled></textarea>
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>

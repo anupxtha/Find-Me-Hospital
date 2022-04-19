@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="admin/navbar::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="card mt-5 mr-5">
+			<div class="card-body">
+				<h1 class="text-center">Hospital's Details</h1>
+				<table class="table mt-4">
+				  <thead>
+				    <tr>
+				      <th scope="col">ID</th>
+				      <th scope="col">Name</th>
+				      <th scope="col">Email</th>
+				      <th scope="col">Contact</th>
+				      <th scope="col">Certified</th>
+				      <th scope="col">Fax</th>
+				      <th scope="col">GPO-Box</th>
+				      <th scope="col">City</th>
+				      <th scope="col">Image</th>
+				      <th scope="col">Action</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:if="${hospitals}" th:each="hospital : ${hospitals}">
+				      <th scope="row" th:text="${hospital.id}"></th>
+				      <td th:text="${hospital.h_name}"></td>
+				      <td th:text="${hospital.h_email}"></td>
+				      <td th:text="${hospital.h_contact}"></td>
+				      <td th:text="${hospital.certified_by}"></td>
+				      <td th:text="${hospital.fax}"></td>
+				      <td th:text="${hospital.gpo_box}"></td>
+				      <td th:if="${hospital.city}" th:text="${hospital.city.name}"></td>
+				      <td th:unless="${hospital.city}">-------</td>
+				      <td><img style="height: 30px; width: 30px;" src="" th:src="@{'/hospitals/'+${hospital.h_image}}" th:alt="${hospital.h_name}" /></td>
+				      <td>
+				      	<a th:href="@{'/admin/hospital/' + ${hospital.id}}"><button  class="btn btn-danger btn-sm">Edit</button></a>
+				      	<a
+								th:href="@{'/admin/deleteHospital/'+${hospital.id}}"><button
+										class="btn btn-primary btn-sm">Delete</button></a>
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+				
+				<nav aria-label="Page navigation example">
+				  <ul class="pagination">
+				    <li th:if="${currentPage != 0}" class="page-item"><a class="page-link" th:href="@{'/admin/viewHospital/'+${currentPage-1}}" href="#">Previous</a></li>
+				    <li th:classappend="${currentPage==i-1?'active': ''}" th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"><a class="page-link" th:href="@{'/admin/viewHospital/'+${i-1}}" href="#"><span th:text="${i}"></span></a></li>
+				    <li th:if="${currentPage+1 != totalPages}" class="page-item"><a class="page-link" th:href="@{'/admin/viewHospital/'+${currentPage+1}}" href="#">Next</a></li>
+				  </ul>
+				</nav>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

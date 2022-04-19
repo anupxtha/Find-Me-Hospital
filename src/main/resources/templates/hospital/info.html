@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="hospital/navbar::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <div class="card mt-2 mr-5">
+        <div class="card-body">
+            <h1 class="text-center mt-1">Hospital Info</h1>
+
+			<div  th:if="${session.msg}"  id="msg" class="container" style="text-align: center; width: 500px;margin-left: auto;margin-right: auto;" >
+				<div th:classappend="${'alert-'+ session.msg.type}" class="alert" role="alert" >
+					<span th:text="${session.msg.message}"></span>
+				</div>
+            	<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+			</div>
+
+            <div class="container-fluid mt-3">
+                
+                   <!--  <div class="col-md-10 offset-md-1"> -->
+                        <form id="updateInfo" th:action="@{/hospital/updateInfo}" class="mt-3" method="POST" enctype="multipart/form-data" th:object="${hospital}">
+							
+							<input type="text" th:value="${hospital.id}" th:name="id" hidden />
+							<input type="text" th:value="${hospital.h_password}" th:name="h_password"  hidden/>
+							<div class="row">
+								<div class="col">
+									<div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input th:value="${hospital.h_name}" type="text" id="h_name" name="h_name" placeholder="Enter Hospital Name" class="form-control">
+	                            	</div>
+	
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input disabled="disabled" th:value="${hospital.h_email}" type="email" id="h_email" name="h_email" placeholder="Enter Hospital email" class="form-control">
+		                            </div>
+	
+		                             <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input th:value="${hospital.h_contact}" type="text" id="h_contact" name="h_contact" placeholder="Enter Hospital contact" class="form-control">
+		                            </div>
+	
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input th:value="${hospital.emergency_contact}" type="text" id="emergency_contact" name="emergency_contact" placeholder="Enter Emergency Contact" class="form-control">
+		                            </div>
+	                            
+	                            
+	                            	<div class="form-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                    <img style="width: 100px; height: 100px;" th:src="@{'/hospitals/'+${hospital.h_image}}" th:alt="${hospital.h_name}" />
+		                                   	&nbsp;&nbsp;&nbsp;&nbsp;
+		                                    <input type="file" id="image" name="image" class="form-control">
+		                                </div>
+		                            </div>
+		                            
+								</div>
+	                            
+	                            <div class="col">
+	                            	<div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input th:value="${hospital.certified_by}" type="text" id="certified_by" name="certified_by" placeholder="Hospital Certified By" class="form-control">
+	                           		</div>
+	                            
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input th:value="${hospital.fax}" type="text" id="fax" name="fax" placeholder="Enter Hospital Fax No." class="form-control">
+		                            </div>
+		                            
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input th:value="${hospital.gpo_box}" type="text" id="gpo_box" name="gpo_box" placeholder="Enter Hospital GPO-BOX No." class="form-control">
+		                            </div>
+		                            
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input th:value="${hospital.address}" type="text" id="address" name="address" placeholder="Enter Hospital Full Address" class="form-control">
+		                            </div>
+		                            
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-plus"></i>
+		                                    </div>
+		                                </div>
+		                                <input type="date" id="established_date" name="established_date" class="form-control" th:value="${#dates.format(hospital.established, 'yyyy-MM-dd')}">
+		                            </div>
+		
+		                            <div class="input-group mt-4">
+		                                <div class="input-group-prepend">
+		                                    <div class="input-group-text mr-3">
+		                                        <i class="fa fa-search"></i>
+		                                    </div>
+		                                </div>
+		                                <select th:if="${hospital.city}" name="city" id="city" class="form-control font-weight-bold text-uppercase">
+		                                    <option disabled>Select Hospital Permanent City...</option>
+		                                    <option th:each="n : ${city}" th:value="${n.getId()}" th:if="${hospital.city.id}== ${n.getId()}" selected="selected">
+		                                        <span th:text="${n.getName()}"></span>
+		                                    </option>
+		                                    <option th:each="n : ${city}" th:value="${n.getId()}" th:unless="${hospital.city.id}== ${n.getId()}">
+		                                        <span th:text="${n.getName()}"></span>	
+		                                    </option>
+		                                </select>
+		                                <select th:unless="${hospital.city}" name="city" id="city" class="form-control font-weight-bold text-uppercase" required oninvalid="this.setCustomValidity('Please Enter City Name of Hospital.')"
+												oninput="setCustomValidity('')">
+		                                    <option disabled selected value="">Select Hospital Permanent City...</option>
+		                                    <option th:each="n : ${city}" th:value="${n.getId()}" >
+		                                        <span th:text="${n.getName()}"></span>	
+		                                    </option>
+		                                </select>
+		                            </div>
+	                            </div>
+	                         
+	                         </div>   
+	                            
+	                         <div class="form-group mt-4">
+                                <textarea th:text="${hospital.h_description}" name="h_description" id="h_description" class="form-control" rows="5"></textarea>
+                            </div>
+	                            
+                            <div class="container text-center mt-4">
+                                <button type="submit" class="btn btn-outline-primary">Update Hospital</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="reset" class="btn btn-outline-danger">Clear</button>
+                            </div>
+
+                        </form>
+                   <!--  </div> -->
+               
+            </div>
+        </div>
+    </div>
+    
+     <script type="text/javascript">
+    	
+    	var msg = document.getElementById("msg");
+    	
+    	let intervalId = setTimeout(hide, 3000);
+    	
+    	function hide(){
+    		msg.style.display = 'none';
+    		
+    	}
+    	
+    	clearTimeout(intervalID);
+    	
+    </script>
+  
+    
+</section>
+</body>
+</html>

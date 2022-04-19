@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="patient/navbar::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="card mt-4 mr-5">
+			<div class="card-body">
+				<div class="container text-center" style="display: flex;">
+					<img style="width: 200px; height: 200px;" class="img-avatar" src=""
+						th:src="@{'/hospitals/'+${hospital.h_image}}"
+						th:alt="${hospital.h_name}" />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<h1 class="text-center mt-5"
+						th:text="${hospital.h_name} + '  ( Certified By - ' +${hospital.certified_by} +')'"></h1>
+				</div>
+				<div class="row mt-5">
+					<div class="col">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Hospital Id :</th>
+									<td th:text="${hospital.id}"></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">Hospital email :</th>
+									<td th:text="${hospital.h_email}"></td>
+								</tr>
+								<tr>
+									<th scope="row">Hospital contact :</th>
+									<td th:text="${hospital.h_contact}"></td>
+								</tr>
+								<tr>
+									<th scope="row">Hospital Emergency Contact :</th>
+									<td th:text="${hospital.emergency_contact}"></td>
+								</tr>
+
+								<tr>
+									<th scope="row">Certified By :</th>
+									<td th:text="${hospital.certified_by}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Fax No :</th>
+									<td th:text="${hospital.fax}"></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">Hospital Establish Year :</th>
+									<td
+										th:text="${#dates.format(hospital.established, 'yyyy-MM-dd')}"></td>
+								</tr>
+								<tr>
+									<th scope="row">GPO BOX No :</th>
+									<td th:text="${hospital.gpo_box}"></td>
+								</tr>
+								<tr>
+									<th scope="row">Address :</th>
+									<td th:text="${hospital.address}"></td>
+								</tr>
+								<tr>
+									<th scope="row">Permanent City :</th>
+									<td th:if="${hospital.city}" th:text="${hospital.city.name}"></td>
+									<td th:unless="${hospital.city}">---------</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<textarea th:text="${hospital.h_description}" name="h_description"
+					id="h_description" class="form-control" rows="5" disabled></textarea>
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>

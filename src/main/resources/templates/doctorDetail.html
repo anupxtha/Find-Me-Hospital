@@ -1,0 +1,26 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<h5 style="margin-left: 130px; color: #04676A; font-family: 'Lucida Console', 'Courier New', monospace;" class="modal-title" id="exampleModalLabel"
+			>Doctor Details</h5>
+		<button type="button" class="close" data-dismiss="modal"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+
+		<img style="margin-left: 75px;" class="image" th:src="@{'/doctors/'+${doctor.d_photo}}"
+			th:alt="${doctor.d_name}">
+		<label style="margin-left: 75px;"
+			for="Name">Name : <span th:text="${doctor.d_name}"></span>
+		</label> <label style="margin-left: 75px;" for="Email">Email : <span
+			th:text="${doctor.d_email}"></span>
+		</label> </label> <label style="margin-left: 75px;" for="Contact">Contact : <span
+			th:text="${doctor.d_contact}"></span>
+		</label> </label> <label style="margin-left: 75px;" for="Address">Address : <span
+			th:text="${doctor.address} + ', ' + ${doctor.city.name}"></span>
+		</label> </label> <label style="margin-left: 75px;" for="Info">Info : <span
+			th:text="${#strings.abbreviate(doctor.d_info,37)}"></span>
+		</label>
+	</div>
+</div>

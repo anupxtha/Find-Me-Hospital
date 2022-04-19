@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
+<head>
+<meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" th:href="@{/assets/favicon.png}"
+	type="image/x-icon" />
+<link rel="stylesheet" th:href="@{/style/style.css}" />
+<!-- <link rel="stylesheet" href="./icons/all.css" /> -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<title th:text="FindMeHospital">Please add Title</title>
+<!--    <link rel="stylesheet" type="text/css" media="all" th:href="@{/index.css}" />-->
+<script type="text/javascript" th:src="@{/index.js}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+
+<style>
+.sidebar {
+	width: 18%;
+	background: #fffafa;
+	height: 100%;
+	position: fixed;
+	padding-top: 45px;
+}
+
+.sidebar a {
+	display: block;
+	width: 100%;
+	padding: 10px 25px;
+	text-decoration: none;
+	color: gray;
+}
+
+.sidebar a:hover {
+	background: #e2e2e2;
+}
+
+.content {
+	margin-left: 20%;
+}
+
+.dropdown-menu {
+	background: #fffafa;
+}
+</style>
+</head>
+<body>
+
+	<header>
+		<div class="navbar">
+			<div id="title">
+				<a href="/">FindMeHospital</a>
+			</div>
+			<ul class="navbar_menues">
+				<li class="navbar__list"><a href="/" class="active">Home</a></li>
+				<li class="navbar__list"><a href="/allHospitals">Hospital</a></li>
+				<li class="navbar__list"><a href="/allServices">Services</a></li>
+				<li class="navbar__list"><a href="/allDoctors">Doctors</a></li>
+				<li class="navbar__list"><a th:href="@{/admin}">Account</a></li>
+				<li class="navbar__list"><a th:href="@{/admin/logout}">Logout</a></li>
+			</ul>
+		</div>
+	</header>
+
+	<div class="sidebar">
+		<div class="smini-hidden text-center mx-auto">
+			<img style="width: 150px; height: 150px; border-radius: 50%;"
+				class="img-avatar"
+				src="https://engineering.unl.edu/images/staff/Kayla-Person.jpg"
+				alt="">
+
+			<!-- <ul class="list-inline mt-3 mb-0">
+				<li class="list-inline-item"><a
+					class="link-fx text-dual fs-sm fw-semibold text-uppercase"
+					href="/admin">Admin</a></li>
+
+			</ul> -->
+		</div>
+		<hr />
+		<a href="/admin" class="item">Admin Dashboard</a> 
+		<a
+			th:href="@{/admin/addCity}" class="item">Add City</a> <a
+			th:href="@{/admin/addService}" class="item">Add Services</a> <a
+			th:href="@{/admin/addHospital}" class="item">Add Hospital</a> 
+			<a th:href="@{/admin/viewCities/0}" class="item">View Cities</a>
+			<a
+			th:href="@{/admin/viewService/0}" class="item">View Services</a> <a
+			th:href="@{/admin/viewHospital/0}" class="item">View Hospitals</a> <a
+			th:href="@{/admin/viewPatient/0}" class="item">View Patients</a> <a
+			href="#" class="nav-link dropdown-toggle" role="button"
+			data-toggle="dropdown" aria-expanded="false">Setting</a>
+		<ul class="dropdown-menu">
+			<!-- <li><a href="#" class="dropdown-item">Edit Account</a></li> -->
+			<li><a th:href="@{'/admin/changePassword'}"  class="dropdown-item">Change Password</a></li>
+		</ul>
+		<a th:href="@{/admin/logout}" class="item">Logout</a>
+	</div>
+
+	<div class="content">
+		<div th:replace="${content}"></div>
+	</div>
+
+</body>
+</html>

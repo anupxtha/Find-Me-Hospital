@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="hospital/navbar::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="card mt-5 mr-5">
+			<div class="card-body">
+				<h1 class="text-center">Appointment's Details</h1>
+				<table class="table mt-4">
+					<thead>
+						<tr>
+							<th scope="col">ID</th>
+							<th scope="col">Patient</th>
+							<th scope="col">Req. Date</th>
+							<th scope="col">Doctor</th>
+							<th scope="col">Service</th>
+							<th scope="col">Room</th>
+							<th scope="col">Status</th>
+							<th scope="col">R. Date</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<div th:if="${appointments}"
+							th:each="appointment : ${appointments}">
+							<form
+								th:action="@{/hospital/updateAppointment(appointmentId=${appointment.id}, page=${param.page[0]})}"
+								method="POST">
+								<tr
+									th:classappend="${appointment.a_status} == -1 ? table-danger: (${appointment.a_status} == 1 ? table-success : table-info)">
+									<th scope="row" th:text="${appointment.id}">1</th>
+									<td th:text="${appointment.patient.p_name}"></td>
+									<td th:text="${appointment.requested_appointment_date}"></td>
+									<td th:if="${appointment.hospitalServiceDoctor.doctor}"
+										th:text="${appointment.hospitalServiceDoctor.doctor.d_name}"></td>
+									<td th:unless="${appointment.hospitalServiceDoctor.doctor}">---------</td>
+									<td th:if="${appointment.hospitalServiceDoctor.service}"
+										th:text="${appointment.hospitalServiceDoctor.service.s_name}"></td>
+									<td th:unless="${appointment.hospitalServiceDoctor.service}">--------</td>
+									<td th:if="${appointment.hospitalServiceDoctor.doctor} and ${appointment.hospitalServiceDoctor.doctor.room}"
+										th:text="${appointment.hospitalServiceDoctor.doctor.room.r_number}+ '--' +${appointment.hospitalServiceDoctor.doctor.room.r_name}"></td>
+									<td th:unless="${appointment.hospitalServiceDoctor.doctor} and ${appointment.hospitalServiceDoctor.doctor.room}">------------</td>
+									<td th:if="${appointment.a_status == 0}"><select
+										name="a_status" id="a_status"
+										class="form-control font-weight-bold text-uppercase" required>
+											<option selected value="" disabled>Requested</option>
+											<option value="-1">Rejected</option>
+											<option value="1">Confirmed</option>
+									</select></td>
+									<td th:if="${appointment.a_status == -1}"><select
+										name="a_status" id="a_status"
+										class="form-control font-weight-bold text-uppercase" required
+										disabled>
+											<option value="" disabled>Requested</option>
+											<option selected value="-1">Rejected</option>
+											<option value="1">Confirmed</option>
+									</select></td>
+									<td th:if="${appointment.a_status == 1}"><select
+										name="a_status" id="a_status"
+										class="form-control font-weight-bold text-uppercase" required
+										disabled>
+											<option value="" disabled>Requested</option>
+											<option value="-1">Rejected</option>
+											<option selected value="1">Confirmed</option>
+									</select></td>
+
+									<td th:text="${appointment.review_appointment_date}"></td>
+									<td>
+										<button th:if="${appointment.a_status == 0}"
+											class="btn btn-danger btn-sm" type="submit">Update</button>
+
+									</td>
+								</tr>
+							</form>
+						</div>
+					</tbody>
+				</table>
+
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li th:if="${currentPage != 0}" class="page-item"><a
+							class="page-link"
+							th:href="@{/hospital/viewAppointment(page=${currentPage-1})}"
+							href="#">Previous</a></li>
+						<li th:classappend="${currentPage==i-1?'active': ''}"
+							th:each="i : ${#numbers.sequence(1, totalPages)}"
+							class="page-item"><a class="page-link"
+							th:href="@{/hospital/viewAppointment(page=${i-1})}" href="#"><span
+								th:text="${i}"></span></a></li>
+						<li th:if="${currentPage+1 != totalPages}" class="page-item"><a
+							class="page-link"
+							th:href="@{/hospital/viewAppointment(page=${currentPage+1})}"
+							href="#">Next</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

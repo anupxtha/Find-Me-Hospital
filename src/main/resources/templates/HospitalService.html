@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="navbar::layout(~{::section})">
+
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+	<section class="data">
+
+		<style>
+/*  All Hospital CSS */
+.data {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.container3 {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	margin-left: 6rem;
+	margin-right: 6rem;
+}
+
+.image {
+	padding: 0.5rem;
+	margin-bottom: 0.5rem;
+	height: 400px;
+	width: 300px;
+	-webkit-box-shadow: 0px 4px 6px 1px #787878;
+	box-shadow: 0px 4px 6px 1px #787878;
+	-webkit-box-shadow: 0px 4px 6px 1px #787878;
+	-webkit-box-shadow: 0px 4px 6px 1px #787878;
+}
+
+img {
+	width: 100%;
+}
+
+.imagebuttonscontainer {
+	margin: 3rem;
+}
+
+.buttons {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+}
+
+.buttons div {
+	border: 1px solid rgb(199, 199, 199);
+	padding: 4px;
+	background-color: #7BB9B9;
+	border-radius: 5px;
+}
+
+.buttons1 {
+	margin-right: -0.8rem;
+	font-size: 1.3rem;
+	text-align: center;
+	font-weight: bold;
+	letter-spacing: 2px;
+}
+
+.buttons2 {
+	margin-left: 2rem;
+	font-size: 1.3rem;
+	text-align: center;
+	font-weight: bold;
+	letter-spacing: 2px;
+}
+
+.title {
+	display: grid;
+	justify-content: space-between;
+	grid-auto-flow: column;
+	padding: 1rem;
+	margin-left: 8rem;
+	margin-right: 8rem;
+}
+
+.pagination {
+	display: grid;
+	justify-content: center;
+	grid-auto-flow: column;
+	align-items: center;
+}
+
+ul {
+	list-style-type: none;
+}
+
+/* span {
+	padding: 0.5rem;
+	margin: 0.25rem;
+	background-color: #5bc198;
+	color: white;
+	font-size: 1.2rem;
+	border-radius: 5px;
+} */
+.arrow {
+	background-color: white;
+	color: #5bc198;
+	font-size: 2rem;
+}
+
+main {
+	background-color: #f4f7fc;
+	padding-top: 3rem;
+}
+
+input[type="checkbox"].switch_1 {
+	font-size: 20px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	width: 3.5em;
+	height: 1.5em;
+	background: #ddd;
+	border-radius: 3em;
+	position: relative;
+	cursor: pointer;
+	outline: none;
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+input[type="checkbox"].switch_1:checked {
+	background: #04676A;
+}
+
+input[type="checkbox"].switch_1:after {
+	position: absolute;
+	content: "";
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 50%;
+	background: #fff;
+	-webkit-box-shadow: 0 0 .25em rgba(0, 0, 0, .3);
+	box-shadow: 0 0 .25em rgba(0, 0, 0, .3);
+	-webkit-transform: scale(.7);
+	transform: scale(.7);
+	left: 0;
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+input[type="checkbox"].switch_1:checked:after {
+	left: calc(100% - 1.5em);
+}
+</style>
+
+		<div style="float: left;" class="mt-5 ml-5 mb-1">
+			<h1
+				style="color: #04676A; font-family: 'Lucida Console', 'Courier New', monospace;"
+				class="ml-2">Avaiable Services</h1>
+		</div>
+
+		<article id='post-container'>
+			<div class="container-fluid px-5 py-5 mx-auto" style="clear: both;">
+				<div class="row justify-content-between px-3">
+					<div th:each="n : ${servicesList}" class="block text-center mb-5">
+						<img class="image" th:src="@{'/services/'+${n.s_image}}"
+							th:alt="${n.s_name}">
+						<div class="info py-2 px-2">
+							<div class="row px-3">
+								<div class="buttons">
+									<button type="button" class="btn btn-primary buttons1"
+										data-toggle="modal" data-target="#exampleModal"
+										th:onclick="|showPop(${n.id})|">Details</button>
+									<a
+										th:href="@{/searchDoctor(hospital=${hospitalDetail.h_name}, service=${n.s_name})}"
+										style="text-decoration: none; color: black;"><div
+											class="buttons2">View Doctors</div></a>
+								</div>
+							</div>
+							<div class="text-left">
+								<h5
+									style="font-family: 'Lucida Console', Courier, monospace; font-weight: bold;"
+									class="mb-1 mt-2" th:text="${n.s_name}"></h5>
+								<small
+									style="font-family: 'Lucida Console', Courier, monospace;"
+									th:text="${#strings.abbreviate(n.s_description,37)}"></small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div id="details" class="modal-dialog" role="document"></div>
+		</div>
+
+		<script type="text/javascript">
+			function showPop(id) {
+				$.ajax({
+					url : '/showServiceDetails/' + id,
+					success : function(data, textStatus, jqXHR) {
+						/* console.log(data) */
+						$('#details').show();
+						$('#details').html(data);
+					},
+				});
+			}
+		</script>
+	</section>
+</body>
+</html>

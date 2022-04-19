@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="navbar::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<style>
+.register {
+	background: -webkit-linear-gradient(left, #04676A, #E5E5E5);
+	margin-top: 3%;
+	padding: 3%;
+}
+
+.register-left {
+	text-align: center;
+	color: #fff;
+	margin-top: 4%;
+}
+
+.register-left input {
+	border: none;
+	border-radius: 1.5rem;
+	padding: 2%;
+	width: 60%;
+	background: #f8f9fa;
+	font-weight: bold;
+	color: #383d41;
+	margin-top: 30%;
+	margin-bottom: 3%;
+	cursor: pointer;
+}
+
+.register-right {
+	background: #f8f9fa;
+	border-top-left-radius: 10% 50%;
+	border-bottom-left-radius: 10% 50%;
+}
+
+.register-left img {
+	margin-top: 15%;
+	margin-bottom: 5%;
+	width: 25%;
+	-webkit-animation: mover 2s infinite alternate;
+	animation: mover 1s infinite alternate;
+}
+
+.register-left p {
+	font-weight: lighter;
+	padding: 12%;
+	margin-top: -9%;
+}
+
+.register .register-form {
+	padding: 10%;
+	margin-top: 10%;
+}
+
+.btnRegister {
+	float: right;
+	margin-top: 10%;
+	border: none;
+	border-radius: 1.5rem;
+	padding: 2%;
+	background: #0062cc;
+	color: #fff;
+	font-weight: 600;
+	width: 50%;
+	cursor: pointer;
+}
+
+.register .nav-tabs {
+	margin-top: 3%;
+	border: none;
+	background: #0062cc;
+	border-radius: 1.5rem;
+	width: 28%;
+	float: right;
+}
+
+.register .nav-tabs .nav-link {
+	padding: 2%;
+	height: 34px;
+	font-weight: 600;
+	color: #fff;
+	border-top-right-radius: 1.5rem;
+	border-bottom-right-radius: 1.5rem;
+}
+
+.register .nav-tabs .nav-link:hover {
+	border: none;
+}
+
+.register .nav-tabs .nav-link.active {
+	width: 100px;
+	color: #0062cc;
+	border: 2px solid #0062cc;
+	border-top-left-radius: 1.5rem;
+	border-bottom-left-radius: 1.5rem;
+}
+
+.register-heading {
+	text-align: center;
+	margin-top: 8%;
+	margin-bottom: -15%;
+	color: #495057;
+}
+</style>
+
+		<div class="container register mb-5">
+			<div class="row">
+				<div class="col-md-3 register-left">
+					<img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+					<h3>Welcome</h3>
+					<p>You are 30 seconds away from taking your first appointment
+						in any Hospital!</p>
+					<a th:href="@{/patient/login}"><input type="submit" name=""
+						value="Login" /></a><br />
+				</div>
+				<div class="col-md-9 register-right">
+
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="home" role="tabpanel"
+							aria-labelledby="home-tab">
+							<h3 class="register-heading">Register as a Patient</h3>
+
+							<div th:if="${session.msg}" id="msg" class="container"
+								style="text-align: center; width: 500px; margin-left: auto; margin-right: auto;">
+								<div th:classappend="${'alert-'+ session.msg.type}"
+									class="alert" role="alert">
+									<span th:text="${session.msg.message}"></span>
+								</div>
+								<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+							</div>
+
+							<form th:action="@{/postPatient}" method="POST"
+								enctype="multipart/form-data">
+								<div class="row register-form">
+									<div class="col-md-6">
+										<div class="form-group">
+											<input type="text" id="p_name" name="p_name"
+												class="form-control" placeholder="Your Full Name *" required
+												oninvalid="this.setCustomValidity('Please Enter Your Full Name')"
+												oninput="setCustomValidity('')" />
+										</div>
+										<div class="form-group">
+											<input type="email" id="p_email" name="p_email"
+												class="form-control" placeholder="Your Email *" required
+												oninvalid="this.setCustomValidity('Please Enter Your Email')"
+												oninput="setCustomValidity('')" />
+										</div>
+
+										<div class="form-group">
+											<input type="password" id="p_password" name="p_password"
+												class="form-control" placeholder="Password *" required
+												oninvalid="this.setCustomValidity('Please Create your Password')"
+												oninput="setCustomValidity('')"  />
+										</div>
+
+										<div class="form-group">
+											<div class="maxl">
+												<label class="radio inline"> <input type="radio"
+													name="p_gender" id="p_gender" value="male" required> <span>
+														Male </span>
+												</label> <label class="radio inline"> <input type="radio"
+													name="p_gender" id="p_gender" value="female"> <span>Female
+												</span>
+												</label>
+												 <label class="radio inline"> <input type="radio"
+													name="p_gender" id="p_gender" value="other"> <span>Other
+												</span>
+												</label>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<input onfocus="(this.type='date')"
+												onblur="(this.type='text')" type="text" id="dateofbirth"
+												name="dateofbirth" placeholder="Date of Birth (mm/dd/yyyy)"
+												class="form-control" required
+												oninvalid="this.setCustomValidity('Mention your Date of Birth')"
+												oninput="setCustomValidity('')" >
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<input type="text" minlength="10" maxlength="10"
+												name="p_contact" id="p_contact" class="form-control"
+												placeholder="Your Contact Num *" required
+												oninvalid="this.setCustomValidity('Please Enter your Contact Number')"
+												oninput="setCustomValidity('')"  />
+										</div>
+										<div class="form-group">
+											<input type="text" id="address" name="address"
+												class="form-control" placeholder="Your Full Address *" required
+												oninvalid="this.setCustomValidity('Please Enter your Full Address')"
+												oninput="setCustomValidity('')" />
+										</div>
+										<div class="form-group">
+											<select name="city" id="city"
+												class="form-control font-weight-bold text-uppercase"
+												required
+												oninvalid="this.setCustomValidity('Please Select your City')"
+												onchange="setCustomValidity('')">
+												<option selected value="" disabled>Your City...</option>
+												<option th:each="n : ${city}" th:value="${n.getId()}">
+													<span th:text="${n.getName()}"></span>
+												</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<textarea name="p_info" id="p_info" class="form-control"
+												rows="3" placeholder="Something about you"></textarea>
+										</div>
+										<input type="submit" class="btnRegister" value="Register" />
+									</div>
+								</div>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<script type="text/javascript">
+			var msg = document.getElementById("msg");
+
+			let intervalId = setTimeout(hide, 3000);
+
+			function hide() {
+				msg.style.display = 'none';
+
+			}
+
+			clearTimeout(intervalID);
+		</script>
+	</section>
+</body>
+</html>

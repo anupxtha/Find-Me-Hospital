@@ -1,0 +1,27 @@
+<div class="container-fluid px-5 py-5 mx-auto" style="clear: both;">
+	<div class="row justify-content-between px-3">
+		<div th:each="n : ${servicesList}" class="block text-center mb-5">
+			<img class="image" th:src="@{'/services/'+${n.s_image}}"
+				th:alt="${n.s_name}">
+			<div class="info py-2 px-2">
+				<div class="row px-3">
+					<div class="buttons">
+						<button type="button" class="btn btn-primary buttons1"
+							data-toggle="modal" data-target="#exampleModal"
+							th:onclick="|showPop(${n.id})|">Details</button>
+						<a th:href="@{'/ServiceOfHospital/'+${n.id}}"
+							style="text-decoration: none; color: black;"><div
+								class="buttons2">Appointment</div></a>
+					</div>
+				</div>
+				<div class="text-left">
+					<h5
+						style="font-family: 'Lucida Console', Courier, monospace; font-weight: bold;"
+						class="mb-1 mt-2" th:text="${n.s_name}"></h5>
+					<small style="font-family: 'Lucida Console', Courier, monospace;"
+						th:text="${#strings.abbreviate(n.s_description,37)}"></small>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

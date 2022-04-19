@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="navbar::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Add Employee</title>
+</head>
+<body>
+
+	<section>
+		<div class="heading">
+			<div class="heading_section"></div>
+			<form th:action="@{/searchHospitals}" method="post">
+				<div class="heading_card">
+					<div class="heading_card_section">
+						<div class="input-field">
+							<input type="text" name="service" id="service"
+								placeholder="Enter Services" required="required"  oninvalid="this.setCustomValidity('Please Enter Required Service')"
+ oninput="setCustomValidity('')"/>
+							<div class="icon">
+								<i class="fas fa-user"></i>
+							</div>
+						</div>
+						<div id="search_box" class="input-field">
+							<select style="margin-left: 4px;" name="city" id="city"
+								class="form-control " data-live-search="true" required oninvalid="this.setCustomValidity('Please Select your City')" onchange="setCustomValidity('')">
+								<option selected value="" disabled>Select your City...</option>
+								<option th:each="n : ${city}" th:value="${n.getId()}">
+									<span th:text="${n.getName()}"></span>
+								</option>
+							</select>
+							<!--                            <input type="text" name="text" placeholder="Select Location" />-->
+							<i class="fa-solid fa-location-dot input-icon"
+								style="margin-right: 4px;"></i>
+						</div>
+						<button type="submit" class="btn-book">Search Hospital</button>
+					</div>
+				</div>
+			</form>
+			<div class="services">
+				<div class="services_section">
+					<div class="services_icon">
+						<img th:src="@{/assets/services/DoctorsBag.png}" alt="" />
+					</div>
+					<div class="services_info">
+						<div class="service_title">Specialized Services</div>
+						<div class="service_subtitle">Lorem ipsum dolor sit</div>
+					</div>
+				</div>
+
+				<div class="services_section">
+					<div class="services_icon">
+						<img th:src="@{/assets/services/Last24Hours.png}" alt="" />
+					</div>
+					<div class="services_info">
+						<div class="service_title">24/7 Advanced Care</div>
+						<div class="service_subtitle">Lorem ipsum dolor sit</div>
+					</div>
+				</div>
+
+				<div class="services_section">
+					<div class="services_icon">
+						<img th:src="@{/assets/services/ReportCard.png}" alt="" />
+					</div>
+					<div class="services_info">
+						<div class="service_title">Online Appointment</div>
+						<div class="service_subtitle">Lorem ipsum dolor sit</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-detail">
+			<div class="image">
+				<img th:src="@{/assets/image-detail.png}" alt="image" />
+			</div>
+			<div class="detail">
+				<div class="title">Short Story About FindMeHospital</div>
+				<div class="content">Lorem ipsum dolor sit amet, consectetur
+					adipiscing elit. Lobortis scelerisque ac enim mauris volutpat nam
+					tristique. Ac volutpat eu ultrices lorem ut enim. Semper
+					ullamcorper id sed habitant.</div>
+				<div class="hospital-status">
+					<div class="btn1 btn-general">
+						<div class="number">100+</div>
+						<div>Hospital</div>
+					</div>
+					<div class="btn2 btn-general">
+						<div class="number">200+</div>
+						<div>Doctor</div>
+					</div>
+					<div class="btn3 btn-general">
+						<div class="number">90+</div>
+						<div>Services</div>
+					</div>
+					<div class="btn4 btn-general">
+						<div class="number">600+</div>
+						<div>Happy Patients</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="service_provided">
+			<div class="heading">
+				<span>Our Services</span>
+				<h3>High Quality Services for you</h3>
+			</div>
+			<div class="image-slider">
+				<div class="left">
+					<i class="fa-solid fa-angle-left"></i>
+				</div>
+				<div class="slides">
+					<img th:src="@{/assets/ServicesProvided/service1.png}" />
+				</div>
+				<div class="slides">
+					<img th:src="@{/assets/ServicesProvided/service2.png}" />
+				</div>
+				<div class="slides">
+					<img th:src="@{/assets/ServicesProvided/service3.png}" />
+				</div>
+				<div class="right">
+					<i class="fa-solid fa-angle-right"></i>
+				</div>
+			</div>
+		</div>
+
+		<div class="service_provided hospital" style="margin-bottom: 40px;">
+			<div class="heading">
+				<span>Hospitals</span>
+				<h3>Hospital Around You</h3>
+			</div>
+			<div class="image-slider">
+				<div class="left">
+					<i class="fa-solid fa-angle-left"></i>
+				</div>
+				<div class="slides">
+					<img th:src="@{/assets/hospitals/hospital1.png}" />
+				</div>
+				<div class="slides">
+					<img th:src="@{/assets/hospitals/hospital2.png}" />
+				</div>
+				<div class="slides">
+					<img th:src="@{/assets/hospitals/hospital3.png}" />
+				</div>
+				<div class="right">
+					<i class="fa-solid fa-angle-right"></i>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#search_box select').selectpicker();
+			})
+		</script>
+
+
+	</section>
+
+</body>
+</html>

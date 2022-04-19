@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="patient/navbar::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="card mt-5 mr-5">
+			<div class="card-body">
+				<h1 class="text-center">Service's Details</h1>
+				<table class="table mt-4">
+				  <thead>
+				    <tr>
+				      <th scope="col">ID</th>
+				      <th scope="col">Service Name</th>
+				      <th scope="col">Description</th>
+				      <th scope="col">Image</th>
+				      <th scope="col">Action</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:if="${services}" th:each="service : ${services}">
+				      <th scope="row" th:text="${service.id}"></th>
+				      <td th:if="${service.s_name}" th:text="${service.s_name}"></td>
+				      <td th:if="${service.s_description}" th:text="${service.s_description}"></td>
+				      <td><img style="height: 30px; width: 30px;" src="" th:src="@{'/services/'+${service.s_image}}" th:alt="${service.s_image}" /></td>
+				      <td>
+				      	<a th:href="@{'/patient/visitedService/Service_Id/'+${service.id}}"><button class="btn btn-primary btn-sm">View</button></a>
+				      </td>
+				    </tr>
+				  </tbody> 
+				</table>
+				
+				<nav aria-label="Page navigation example">
+				  <ul class="pagination">
+				    <li th:if="${currentPage != 0}" class="page-item"><a class="page-link" th:href="@{'/patient/visitedService/'+${currentPage-1}}" href="#">Previous</a></li>
+				    <li th:classappend="${currentPage==i-1?'active': ''}" th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"><a class="page-link" th:href="@{'/patient/visitedService/'+${i-1}}" href="#"><span th:text="${i}"></span></a></li>
+				    <li th:if="${currentPage+1 != totalPages}" class="page-item"><a class="page-link" th:href="@{'/patient/visitedService/'+${currentPage+1}}" href="#">Next</a></li>
+				  </ul>
+				</nav>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

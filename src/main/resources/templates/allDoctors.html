@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="navbar::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+	<section class="data">
+
+		<style>
+/*  All Doctors CSS */
+.data {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.container3 {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	margin-left: 6rem;
+	margin-right: 6rem;
+}
+
+.image {
+	padding: 0.5rem;
+	margin-bottom: 0.5rem;
+	height: 400px;
+	width: 300px;
+	-webkit-box-shadow: 0px 4px 6px 1px #787878;
+	box-shadow: 0px 4px 6px 1px #787878;
+}
+
+img {
+	width: 100%;
+}
+
+.imagebuttonscontainer {
+	margin: 3rem;
+}
+
+.buttons {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+}
+
+.buttons div {
+	border: 1px solid rgb(199, 199, 199);
+	padding: 4px;
+	background-color: #7BB9B9;
+	border-radius: 5px;
+}
+
+.buttons1 {
+	margin-right: -0.8rem;
+	font-size: 1.3rem;
+	text-align: center;
+	font-weight: bold;
+	letter-spacing: 2px;
+}
+
+.buttons2 {
+	margin-left: 2rem;
+	font-size: 1.3rem;
+	text-align: center;
+	font-weight: bold;
+	color: black;
+	letter-spacing: 2px;
+}
+
+.title {
+	display: grid;
+	justify-content: space-between;
+	grid-auto-flow: column;
+	padding: 1rem;
+	margin-left: 8rem;
+	margin-right: 8rem;
+}
+
+.pagination {
+	display: grid;
+	justify-content: center;
+	grid-auto-flow: column;
+	align-items: center;
+}
+
+ul {
+	list-style-type: none;
+}
+
+/* span {
+			padding: 0.5rem;
+			margin: 0.25rem;
+			background-color: #5bc198;
+			color: white;
+			font-size: 1.2rem;
+			border-radius: 5px;
+		} */
+.arrow {
+	background-color: white;
+	color: #5bc198;
+	font-size: 2rem;
+}
+
+main {
+	background-color: #f4f7fc;
+	padding-top: 3rem;
+}
+</style>
+
+		<div style="float: left;" class="mt-5 ml-5 mb-1">
+			<h1
+				style="color: #04676A; font-family: 'Lucida Console', 'Courier New', monospace;"
+				class="ml-2">Avaiable Doctors</h1>
+		</div>
+
+		<div class="container-fluid px-5 py-5 mx-auto" style="clear: both;">
+			<div class="row justify-content-between px-3">
+				<div th:if="${docList}" th:each="n : ${docList.getList()}" class="block text-center">
+					<img class="image" th:src="@{'/doctors/'+${n.d_photo}}"
+						th:alt="${n.d_name}">
+					<div class="info py-2 px-2">
+						<div class="row px-3">
+							<div class="buttons">
+								<button type="button" class="btn btn-primary buttons1"
+									data-toggle="modal" data-target="#exampleModal"
+									th:onclick="|showPop(${n.nmc_no})|">Details</button>
+								<a style="text-decoration: none; color: black;"
+									th:href="@{/takeAppointment(hospital=${hos}, service=${ser}, doctor=${n.d_name},docId=${n.nmc_no}, room=${n.room.id})}"><div
+										class="buttons2">Appointment</div></a>
+							</div>
+						</div>
+						<div class="text-left">
+							<h5
+								style="font-family: 'Lucida Console', Courier, monospace; font-weight: bold;"
+								class="mb-0 mt-2" th:text="${n.d_name}"></h5>
+
+							<p class="mb-0"
+								style="font-family: 'Lucida Console', Courier, monospace;"
+								th:text="${n.Qualification} + ','+ ${n.Specialty} + ' ' + Specialist"></p>
+							<small style="font-family: 'Lucida Console', Courier, monospace;"
+								th:text="${#strings.abbreviate(n.d_info,37)}"></small>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div id="details" class="modal-dialog" role="document"></div>
+		</div>
+
+		<script type="text/javascript">
+			function showPop(id) {
+				$.ajax({
+					url : '/showDoctorDetails/' + id,
+					success : function(data, textStatus, jqXHR) {
+						/* console.log(data) */
+						$('#details').show();
+						$('#details').html(data);
+					},
+				});
+			}
+		</script>
+
+
+		<!-- <main>
+			<div class="title">
+				<div>
+					<span
+						style="font-size: 2rem; font-weight: bold; letter-spacing: 3px;">Available
+						Doctors</span>
+				</div>
+				<div>
+					<span><a style="text-decoration: none; color: white;"
+						th:href="@{/}">Home</a></span> > <span>Available Doctors</span>
+				</div>
+			</div>
+			
+			<div class="container3">
+				<div th:each="n : ${docList.getList()}"
+					class="imagebuttonscontainer">
+					<div class="image">
+						<img src="" th:src="@{'/doctors/'+${n.d_photo}}"
+							th:alt="${n.d_name}" />
+						<h3 style="text-align: center;" class="card-title" th:text="${n.d_name}"></h3>
+					</div>
+					<div class="buttons">
+						<div class="buttons1">Details</div>
+						<a style="text-decoration: none; color: white;"	
+							th:href="@{/takeAppointment(hospital=${hos}, service=${ser}, doctor=${n.d_name},docId=${n.nmc_no}, room=${n.room.id})}"><div class="buttons2">Appointment</div></a>
+					</div>
+				</div>
+			</div>
+			<div class="pagination">
+				<span class="arrow"><</span> <span>1</span> <span>2</span> <span>3</span>
+				<span class="arrow">></span>
+			</div>
+		</main> -->
+
+		<!-- <div class="card" style="width: 18rem;">
+            <div th:each="n : ${docList.getList()}" class="card-body">
+            	<img style="width: 100%; height: 100%" alt="${n.h_name}" th:src="@{'/doctors/12.jpg'}">
+                <h5 class="card-title"  th:text="${n.d_name}"></h5>
+                <p class="card-text" th:text="${n.d_email}"></p>
+                <a th:href="@{/takeAppointment(hospital=${hos}, service=${ser}, doctor=${n.d_name},docId=${n.nmc_no}, room=${n.room.id})}" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div> -->
+	</section>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/navbar::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="card mt-4 mr-5">
+			<div class="card-body">
+				<div class="container text-center" style="display: flex;">
+					<img style="width: 200px; height: 200px;" class="img-avatar" src=""
+						th:src="@{'/patients/'+${patient.p_photo}}"
+						th:alt="${patient.p_name}" />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<h1 class="text-center mt-5" th:text="${patient.p_name}"></h1>
+				</div>
+				<div class="row mt-5">
+					<div class="col">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Patient Id. :</th>
+									<td th:text="${patient.id}"></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">Patient Name :</th>
+									<td th:text="${patient.p_name}"></td>
+								</tr>
+								<tr>
+									<th scope="row">Patient email :</th>
+									<td th:text="${patient.p_email}"></td>
+								</tr>
+
+								<tr>
+									<th scope="row">Patient Gender :</th>
+									<td th:text="${patient.p_gender}"></td>
+								</tr>
+
+
+							</tbody>
+						</table>
+					</div>
+					<div class="col">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Permanent City :</th>
+									<td th:if="${patient.city}" th:text="${patient.city.name}"></td>
+									<td th:unless="${patient.city}" th:text="${patient.city.name}"></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">Address :</th>
+									<td th:text="${patient.address}"></td>
+								</tr>
+								<tr>
+									<th scope="row">Patient contact :</th>
+									<td th:text="${patient.p_contact}"></td>
+								</tr>
+								<tr>
+									<th scope="row">Date of Birth :</th>
+									<td
+										th:text="${#dates.format(patient.date_of_birth, 'yyyy-MM-dd')}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<textarea th:text="${patient.p_info}" name="p_info" id="p_info"
+					class="form-control" rows="5" disabled></textarea>
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="navbar::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+	<section>
+		<style>
+.heading {
+	font-weight: 500 !important
+}
+
+.subheadings {
+	font-size: 12px;
+	color: #9c27b0
+}
+
+.dots {
+	height: 10px;
+	width: 10px;
+	background-color: green;
+	border-radius: 50%;
+	display: inline-block;
+	margin-right: 5px
+}
+
+.gallery img {
+	margin-right: 10px
+}
+
+.fs-9 {
+	font-size: 9px
+}
+</style>
+
+
+		<form th:action="@{/patient/RequestAppointment}" method="post"
+			th:each="n : ${hsdList.getList()}">
+
+			<input hidden type="number" name="hsdId" id="hsdId"
+				th:value="${n.id}"> <input hidden type="text" name="service"
+				class="form-control" id="service" th:value="${n.service.s_name}">
+
+			<input hidden disabled type="text" class="form-control"
+				name="hospital" id="hospital" th:value="${n.hospital.h_name}">
+
+			<input hidden disabled type="text" class="form-control" name="room"
+				id="room" th:value="${n.doctor.room.id}+'-'+${n.doctor.room.r_name}">
+
+			<div class="row g-0 mt-5">
+				<div class="col-md-2"></div>
+				<div
+					class="col-md-4 mb-2 border-right border-bottom border-top border-left">
+					<div class="p-2 text-center">
+						<div class="profile">
+							<img src="" th:src="@{'/hospitals/' + ${n.hospital.h_image}}"
+								style="width: 150px; height: 150px;"
+								class="rounded-circle img-thumbnail"> <span
+								class="d-block mt-3 font-weight-bold"
+								th:text="${n.hospital.h_name} + ' ' + Hospital"></span>
+						</div>
+						<div class="about-doctor">
+							<table class="table table-borderless">
+								<tbody>
+									<tr>
+										<td>
+											<div class="d-flex flex-column">
+												<span class="heading d-block">Certified By</span> <span
+													class="subheadings" th:text="${n.hospital.certified_by}"></span>
+											</div>
+										</td>
+										<td>
+											<div class="d-flex flex-column">
+												<span class="heading d-block">Established Year</span> <span
+													class="subheadings"
+													th:text="${#dates.format(n.hospital.established, 'yyyy-MM-dd')}"></span>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="d-flex flex-column">
+												<span class="heading d-block">Contact No.</span> <span
+													class="subheadings" th:text="${n.hospital.h_contact}"></span>
+											</div>
+										</td>
+										<td>
+											<div class="d-flex flex-column">
+												<span class="heading d-block">Address</span> <span
+													class="subheadings" th:text="${n.hospital.address}"></span>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div
+					class="col-md-4 mb-2 ml-2 border-right border-bottom border-top border-left">
+					<div class="p-2 text-center">
+						<div class="profile">
+							<img src="" th:src="@{'/services/' + ${n.service.s_image}}"
+								style="width: 150px; height: 150px;"
+								class="rounded-circle img-thumbnail"> <span
+								class="d-block mt-3 font-weight-bold"
+								th:text="${n.service.s_name} + ' ' + Service"></span>
+						</div>
+						<div class="about-doctor">
+							<table class="table table-borderless">
+								<tbody>
+									<tr>
+										<!-- <td>
+											<div class="d-flex flex-column">
+												<span class="heading d-block">Service Id</span> <span
+													class="subheadings" th:text="${n.service.id}"></span>
+											</div>
+										</td> -->
+										<td>
+											<div class="d-flex flex-column">
+												<span class="heading d-block">Service Name</span> <span
+													class="subheadings" th:text="${n.service.s_name}"></span>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="d-flex flex-column">
+												<span class="heading d-block">Description</span> <span
+													class="subheadings" th:text="${n.service.s_description}"></span>
+											</div>
+										</td>
+										<!-- <td>
+											<div class="d-flex flex-column">
+												<span class="heading d-block">Specialist</span> <span
+													class="subheadings">Accupunture</span>
+											</div>
+										</td> -->
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="row g-0">
+				<div class="col-md-2"></div>
+				<div
+					class="col-md-4 border-right border-bottom border-top border-left">
+					<div class="p-2 text-center">
+						<div class="profile">
+							<img src="" th:src="@{'/doctors/' + ${n.doctor.d_photo}}"
+								style="width: 150px; height: 150px;"
+								class="rounded-circle img-thumbnail"> <span
+								class="d-block mt-3 font-weight-bold"
+								th:text="Dr + ' ' +${n.doctor.d_name}"></span>
+						</div>
+						<div class="about-doctor">
+							<table class="table table-borderless">
+								<tbody>
+									<tr>
+										<td>
+											<div class="d-flex flex-column">
+												<span class="heading d-block">Specialist On.</span> <span
+													class="subheadings" th:text="${n.doctor.specialty}"></span>
+											</div>
+										</td>
+										<td>
+											<div class="d-flex flex-column">
+												<span class="heading d-block">Qualification</span> <span
+													class="subheadings" th:text="${n.doctor.qualification}"></span>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="d-flex flex-column">
+												<span class="heading d-block">Year of Experience</span> <span
+													class="subheadings" th:text="${n.doctor.yearOfExperience}"></span>
+											</div>
+										</td>
+										<td>
+											<div class="d-flex flex-column">
+												<span class="heading d-block">Email</span> <span
+													class="subheadings" th:text="${n.doctor.d_email}"></span>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div
+					class="col-md-4 ml-2 border-right border-bottom border-top border-left">
+					<div class="status p-3">
+						<table class="table table-borderless">
+							<tbody>
+								<tr>
+									<td>
+										<div class="d-flex flex-column">
+											<span class="heading d-block">Room No.</span> <span
+												class="subheadings" th:text="${n.doctor.room.r_number}"></span>
+										</div>
+									</td>
+									<td>
+										<div class="d-flex flex-column">
+											<span class="heading d-block">Room Name</span> <span
+												class="subheadings" th:text="${n.doctor.room.r_name}"></span>
+										</div>
+									</td>
+									<td>
+										<div class="d-flex flex-column">
+											<span class="heading d-block">Block/Floor</span> <span
+												class="subheadings"><i>First</i> </span>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div>
+							<div>
+								<label>Request Appointment Date</label> <input
+									class="form-control" type="datetime-local" id="RequestedDate"
+									name="RequestedDate"  required
+												oninvalid="this.setCustomValidity('Choose Date for Appointment')"
+												oninput="setCustomValidity('')">
+
+							</div>
+						</div>
+						<div class="form-group mt-3">
+							<label>Mention your Problem</label>
+							<textarea name="message" id="message" class="form-control"
+								rows="4" placeholder="Message regarding your problem"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-row text-center mt-4 mb-5">
+				<div class="col-12 mb-3">
+					<button type="submit" class="btn btn-primary">Request
+						Appointment</button>
+					&nbsp;&nbsp;&nbsp;
+					<button type="reset" class="btn btn-danger">Clear</button>
+				</div>
+			</div>
+
+		</form>
+
+
+		<!-- <form th:action="@{/patient/RequestAppointment}" method="post"
+			th:each="n : ${hsdList.getList()}">
+			<input hidden type="number" name="hsdId" id="hsdId"
+				th:value="${n.id}">
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label>Service</label> <input disabled type="text" name="service"
+						class="form-control" id="service" th:value="${n.service.s_name}">
+				</div>	
+				<div class="form-group col-md-6">
+					<label>Hospital</label> <input disabled type="text"
+						class="form-control" name="hospital" id="hospital"
+						th:value="${n.hospital.h_name}">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label>Doctor</label> <input disabled type="text"
+						class="form-control" name="doctor" id="doctor"
+						th:value="${n.doctor.d_name}">
+				</div>
+				<div class="form-group col-md-6">
+					<label>Room No</label> <input disabled type="text"
+						class="form-control" name="room" id="room"
+						th:value="${n.doctor.room.id}+'-'+${n.doctor.room.r_name}">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label>Request Appointment Date</label> <input class="form-control"
+						type="datetime-local" id="RequestedDate" name="RequestedDate">
+
+				</div>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Take
+				appointment</button>
+		</form> -->
+
+		<script type="text/javascript">
+			var today = new Date().toISOString().slice(0, 16);
+
+			document.getElementsByName("RequestedDate")[0].min = today;
+		</script>
+
+	</section>
+</body>
+</html>

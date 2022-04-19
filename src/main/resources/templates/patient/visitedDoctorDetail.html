@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="patient/navbar::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="card mt-4 mr-5">
+			<div class="card-body">
+				<div class="container text-center" style="display: flex;">
+					<img style="width: 150px; height: 150px;" class="img-avatar" src=""
+						th:src="@{'/doctors/'+${doctor.d_photo}}"
+						th:alt="${doctor.d_name}" /> 
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<h1 class="text-center mt-5" th:text="${doctor.d_name} + '  (' +${doctor.qualification} +')'"></h1>
+				</div>
+				<div class="row mt-5">
+					<div class="col">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">NMC NO. : </th>
+									<td th:text="${doctor.nmc_no}"></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">Doctor email :</th>
+									<td th:text="${doctor.d_email}"></td>
+								</tr>
+								<tr>
+									<th scope="row">Doctor contact :</th>
+									<td th:text="${doctor.d_contact}"></td>
+								</tr>
+								<tr>
+									<th scope="row">Doctor Gender :</th>
+									<td th:text="${doctor.d_gender}"></td>
+								</tr>
+								<tr>
+									<th scope="row">Date of Birth :</th>
+									<td th:text="${#dates.format(doctor.date_of_birth, 'yyyy-MM-dd')}"></td>
+								</tr>
+								<tr>
+									<th scope="row">Speciality In :</th>
+									<td th:text="${doctor.specialty}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Qualification :</th>
+									<td th:text="${doctor.qualification}"></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">Year of Experience : </th>
+									<td th:text="${doctor.yearOfExperience}"></td>
+								</tr>
+								<tr>
+									<th scope="row">Address :</th>
+									<td th:text="${doctor.address}"></td>
+								</tr>
+								<tr>
+									<th scope="row"> Permanent City :</th>
+									<td th:if="${doctor.city}" th:text="${doctor.city.name}"></td>
+									<td th:unless="${doctor.city}">---------</td>
+								</tr>
+								<tr>
+									<th scope="row"> Doctor Associated Service :</th>
+									<td th:if="${doctor.room}" th:text="${doctor.room.service.s_name}"></td>
+									<td th:unless="${doctor.room}">---------</td>
+								</tr>
+								<tr>
+									<th scope="row"> Doctor Associated Room :</th>
+									<td th:if="${doctor.room}" th:text="${doctor.room.r_name}"></td>
+									<td th:unless="${doctor.room}">--------</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<textarea th:text="${doctor.d_info}" name="d_info" id="d_info"
+										class="form-control" rows="5" disabled></textarea>
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>

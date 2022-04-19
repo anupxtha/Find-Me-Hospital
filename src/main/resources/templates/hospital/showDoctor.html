@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="hospital/navbar::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+	<section>
+		<div class="card mt-1 mr-5">
+			<div class="card-body">
+				<h1 class="text-center mt-1">Update Doctor Details</h1>
+				<input type="hidden" id="hId" name="hId" th:value="${hId}" />
+
+				<div th:if="${session.msg}" id="msg" class="container"
+					style="text-align: center; width: 500px; margin-left: auto; margin-right: auto;">
+					<div th:classappend="${'alert-'+ session.msg.type}" class="alert"
+						role="alert">
+						<span th:text="${session.msg.message}"></span>
+					</div>
+					<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+				</div>
+
+				<div class="container-fluid mt-2">
+
+					<form id="updateDoctor" class="mt-3" th:object="${doctor}"
+						th:action="@{/hospital/updateDoctor}" method="POST"
+						enctype="multipart/form-data">
+
+						<div class="row">
+							<div class="col">
+							
+									<input th:value="${doctor.nmc_no}" type="text" id="nmc_no"
+										name="nmc_no" placeholder="Enter Doctor NMC_NO"
+										class="form-control" hidden>
+								
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input th:value="${doctor.d_name}" type="text" id="d_name"
+										name="d_name" placeholder="Enter Doctor Name"
+										class="form-control">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input th:value="${doctor.d_email}" type="email" id="d_email"
+										name="d_email" placeholder="Enter Doctor email"
+										class="form-control">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input th:value="${doctor.d_contact}" type="text"
+										id="d_contact" name="d_contact"
+										placeholder="Enter Doctor contact" class="form-control">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<div class="form-check form-check-inline">
+										<input th:if="${doctor.d_gender} == 'male'" checked="checked"
+											class="form-check-input" type="radio" name="d_gender"
+											id="d_gender" value="male"> <input
+											th:unless="${doctor.d_gender} == 'male'"
+											class="form-check-input" type="radio" name="d_gender"
+											id="d_gender" value="male"> <label
+											class="form-check-label" for="male"> Male </label>
+									</div>
+
+									<div class="form-check form-check-inline">
+										<input th:if="${doctor.d_gender} == 'female'"
+											checked="checked" class="form-check-input" type="radio"
+											name="d_gender" id="d_gender" value="female"> <input
+											th:unless="${doctor.d_gender} == 'female'"
+											class="form-check-input" type="radio" name="d_gender"
+											id="d_gender" value="male"> <label
+											class="form-check-label" for="female"> Female </label>
+									</div>
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input
+										th:value="${#dates.format(doctor.date_of_birth, 'yyyy-MM-dd')}"
+										onfocus="(this.type='date')" onblur="(this.type='text')"
+										type="text" id="dateofbirth" name="dateofbirth"
+										placeholder="Date of Birth (mm/dd/yyyy)" class="form-control">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input th:value="${doctor.specialty}" type="text"
+										id="specialty" name="specialty"
+										placeholder="Speciality in Common Field" class="form-control">
+								</div>
+
+								<div class="form-group mt-4">
+									<textarea th:text="${doctor.d_info}" name="d_info" id="d_info"
+										class="form-control" rows="5"></textarea>
+								</div>
+							</div>
+
+							<div class="col">
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input th:value="${doctor.qualification}" type="text"
+										id="qualification" name="qualification"
+										placeholder="Qualification UpTo" class="form-control">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input th:value="${doctor.yearOfExperience}" type="number"
+										id="yearOfExperience" name="yearOfExperience"
+										placeholder="Year Of Experience" class="form-control">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input th:value="${doctor.address}" type="text" id="address"
+										name="address" placeholder="Enter Doctor Full Address"
+										class="form-control">
+								</div>
+
+								<div class="form-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+										<img style="width: 140px; height: 140px;"
+											th:src="@{'/doctors/'+${doctor.d_photo}}"
+											th:alt="${doctor.d_name}" /> <input type="file" id="profile"
+											name="profile" class="form-control">
+									</div>
+								</div>
+
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-search"></i>
+										</div>
+									</div>
+									<select th:if="${doctor.city}" name="city" id="city"
+										class="form-control font-weight-bold text-uppercase" required>
+										<option value="" disabled>Select Doctor Permanent
+											City...</option>
+										<option th:each="n : ${city}" th:value="${n.getId()}"
+											th:if="${doctor.city.id}== ${n.getId()}" selected="selected">
+											<span th:text="${n.getName()}"></span>
+										</option>
+										<option th:each="n : ${city}" th:value="${n.getId()}"
+											th:unless="${doctor.city.id}== ${n.getId()}"><span
+												th:text="${n.getName()}"></span>
+										</option>
+									</select>
+									<select th:unless="${doctor.city}" name="city" id="city"
+										class="form-control font-weight-bold text-uppercase" required oninvalid="this.setCustomValidity('Please Enter Doctor City')"
+												oninput="setCustomValidity('')" >
+										<option value="" disabled selected>Select Doctor Permanent
+											City...</option>
+										
+										<option th:each="n : ${city}" th:value="${n.getId()}"
+											><span
+												th:text="${n.getName()}"></span>
+										</option>
+									</select>
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-search"></i>
+										</div>
+									</div>
+									<select th:if="${doctor.room}" name="service" id="service"
+										class="form-control font-weight-bold text-uppercase" required>
+										<option value="" disabled>Select your Service...</option>
+										<option th:each="n : ${hospitalRoomService}"
+											th:value="${n.getId()}"
+											th:if="${doctor.room.service.id}== ${n.getId()}"
+											selected="selected"><span th:text="${n.getS_name()}"></span>
+										</option>
+										<option th:each="n : ${hospitalRoomService}"
+											th:value="${n.getId()}"
+											th:unless="${doctor.room.service.id}== ${n.getId()}"><span
+												th:text="${n.getS_name()}"></span>
+										</option>
+									</select>
+									<select th:unless="${doctor.room}" name="service" id="service"
+										class="form-control font-weight-bold text-uppercase" required oninvalid="this.setCustomValidity('Please Allocate Doctor to Service')"
+												oninput="setCustomValidity('')">
+										<option value="" disabled selected>Select your Service...</option>
+										
+										<option th:each="n : ${hospitalRoomService}"
+											th:value="${n.getId()}"><span
+												th:text="${n.getS_name()}"></span>
+										</option>
+									</select>
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-search"></i>
+										</div>
+									</div>
+									<select th:if="${doctor.room}" name="room" id="room"
+										class="form-control font-weight-bold text-uppercase" required>
+										<option value="" disabled>Select your Room...</option>
+										<option th:value="${doctor.room.id}"
+											selected="selected"><span
+												th:text="${doctor.room.r_number}+---+${doctor.room.r_name}"></span>
+										</option>
+									</select>
+									<select th:unless="${doctor.room}" name="room" id="room"
+										class="form-control font-weight-bold text-uppercase" required>
+										<option value="" disabled selected>Select your Room...</option>
+									</select>
+								</div>
+
+							</div>
+
+						</div>
+
+
+
+						<div class="container text-center mt-4">
+							<button type="submit" class="btn btn-outline-primary">Update
+								Doctor Details</button>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<button type="reset" class="btn btn-outline-danger">Clear</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			$(document)
+					.ready(
+							function() {
+
+								var msg = document.getElementById("msg");
+
+								let intervalId = setTimeout(hide, 3000);
+
+								function hide() {
+									msg.style.display = 'none';
+
+								}
+
+								clearTimeout(intervalId);
+
+								$("#service").on('change', function(event) {
+									const serviceId = this.value;
+									const hosId = $("#hId").val();
+									ajaxPost(serviceId, hosId);
+
+								});
+
+								function ajaxPost(serId, hId) {
+									$
+											.ajax({
+												type : "GET",
+												contentType : "application/json",
+												url : "http://localhost:8181/findRoomByServiceId/"
+														+ serId + "/" + hId,
+												success : function(result) {
+													console.log(result)
+													if (result.length <= 0) {
+														$("#room")
+																.html(
+																		'<option value="" disabled selected>Select your Room...</option>');
+														return;
+													}
+
+													result.list
+															.forEach(function(
+																	obj) {
+																$("#room")
+																		.html(
+																				""
+																						+ '<option value="" disabled>Select your Room...</option>'
+																						+ ""
+																						+ '<option value="'+ obj.id +'">'
+																						+ obj.r_number
+																						+ ' --- '
+																						+ (obj.r_name)
+																						+ '</option>');
+															})
+
+												},
+												error : function(e) {
+													alert("Error!")
+													console.log("ERROR: ", e);
+												}
+											});
+								}
+
+								/* $("#addDoctor").submit(function (event){
+								    event.preventDefault();
+
+								    fetch("http://localhost:8181/saveDoctor",{
+								        method: "POST",
+								        body: JSON.stringify({
+								            d_name : $("#doctor").val(),
+								            d_email : $("#email").val(),
+								            d_contact : $("#contact").val(),
+								            d_gender: $("input[name='gender']:checked").val(),
+								            city: {id: $("#city").val()},
+								            room: {id: $("#room").val()}
+								        }),
+								        headers: {
+								            "Content-type": "application/json; charset=UTF-8"
+								        }
+								    }).then(response => response.json()).then(json =>
+								        fetch("http://localhost:8181/saveHSD", {
+								            method: "POST",
+								            body: JSON.stringify({
+								                hospital: {id : 2},
+								                service: {id: $("#service").val()},
+								                doctor: {id: json.id}
+								            }),
+								            headers: {
+								                "Content-type": "application/json; charset=UTF-8"
+								            }
+								        }).then(res => res.json()).then(data =>{
+								            console.log(data);
+								            $("#addDoctor").trigger('reset');
+								        }).catch(e=>{
+								            console.log("Save HSD error",e)
+								        })
+								    ).catch(e=>{
+								        console.log("Save Doctor Error", e)
+								    })
+								}) */
+
+							})
+		</script>
+
+	</section>
+</body>
+</html>

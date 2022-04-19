@@ -1,0 +1,31 @@
+<div class="container-fluid px-5 py-5 mx-auto" style="clear: both;">
+	<div class="row justify-content-between px-3">
+		<div th:each="n : ${doctorList}" class="block text-center mb-5">
+			<img class="image" th:src="@{'/doctors/'+${n.d_photo}}"
+				th:alt="${n.d_name}">
+			<div class="info py-2 px-2">
+				<div class="row px-3">
+					<div class="buttons">
+						<button type="button" class="btn btn-primary buttons1"
+							data-toggle="modal" data-target="#exampleModal"
+							th:onclick="|showPop(${n.nmc_no})|">Details</button>
+						<a th:href="@{'/DoctorOfHospital/'+${n.nmc_no}}"
+							style="text-decoration: none; color: black;"><div
+								class="buttons2">View Hospital</div></a>
+					</div>
+				</div>
+				<div class="text-left">
+					<h5
+						style="font-family: 'Lucida Console', Courier, monospace; font-weight: bold;"
+						class="mb-0 mt-2" th:text="${n.d_name}"></h5>
+
+					<p class="mb-0"
+						style="font-family: 'Lucida Console', Courier, monospace;"
+						th:text="${n.Qualification} + ','+ ${n.Specialty} + ' ' + Specialist"></p>
+					<small style="font-family: 'Lucida Console', Courier, monospace;"
+						th:text="${#strings.abbreviate(n.d_info,37)}"></small>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

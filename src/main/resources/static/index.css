@@ -1,0 +1,27 @@
+.search-container{
+    position: relative;
+}
+
+.search-result{
+    position: absolute;
+    background: white;
+    width: 30%;
+    top: 100px;
+    padding: 10px;
+    border: 1px solid gray;
+    display: none;
+}
+
+.search-container2{
+    position: relative;
+}
+
+.search-result2{
+    left: 364px;
+    position: absolute;
+    background: white;
+    width: 30%;
+    padding: 10px;
+    border: 1px solid gray;
+    display: none;
+}

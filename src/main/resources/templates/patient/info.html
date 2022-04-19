@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="patient/navbar::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+	<section>
+		<div class="card mt-4 mr-5">
+			<div class="card-body">
+				<h1 class="text-center mt-1">Patient Info</h1>
+
+				<div th:if="${session.msg}" id="msg" class="container"
+					style="text-align: center; width: 500px; margin-left: auto; margin-right: auto;">
+					<div th:classappend="${'alert-'+ session.msg.type}" class="alert"
+						role="alert">
+						<span th:text="${session.msg.message}"></span>
+					</div>
+					<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+				</div>
+
+				<div class="container-fluid mt-3">
+
+					<!--  <div class="col-md-10 offset-md-1"> -->
+					<form id="updateInfo" th:action="@{/patient/updateInfo}"
+						class="mt-3" method="POST" enctype="multipart/form-data"
+						th:object="${patient}">
+
+						<input type="text" th:value="${patient.id}" th:name="id" hidden />
+						<input type="text" th:value="${patient.p_password}"
+							th:name="p_password" hidden />
+						<div class="row">
+							<div class="col">
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input th:value="${patient.p_name}" type="text" id="p_name"
+										name="p_name" placeholder="Enter Patient Name"
+										class="form-control">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input disabled="disabled" th:value="${patient.p_email}" type="email" id="email"
+										name="email" placeholder="Enter Patient email"
+										class="form-control">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input th:value="${patient.p_contact}" type="text"
+										id="p_contact" name="p_contact"
+										placeholder="Enter Patient contact" class="form-control">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input th:value="${patient.address}" type="text" id="address"
+										name="address" placeholder="Enter Address Details"
+										class="form-control">
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-search"></i>
+										</div>
+									</div>
+									<select th:if="${patient.city}" name="city" id="city"
+										class="form-control font-weight-bold text-uppercase" required>
+										<option value="" disabled>Select Doctor Permanent
+											City...</option>
+										<option th:each="n : ${city}" th:value="${n.getId()}"
+											th:if="${patient.city}== ${n.getId()}" selected="selected">
+											<span th:text="${n.getName()}"></span>
+										</option>
+										<option th:each="n : ${city}" th:value="${n.getId()}"
+											th:unless="${patient.city} == ${n.getId()}"><span
+												th:text="${n.getName()}"></span>
+										</option>
+									</select>
+									<select th:unless="${patient.city}" name="city" id="city"
+										class="form-control font-weight-bold text-uppercase" required oninvalid="this.setCustomValidity('Please Select your City')"
+												onchange="setCustomValidity('')">
+										<option value="" disabled selected>Select Doctor Permanent
+											City...</option>
+										<option th:each="n : ${city}" th:value="${n.getId()}"
+										><span
+												th:text="${n.getName()}"></span>
+										</option>
+									</select>
+								</div>
+								
+
+							</div>
+
+							<div class="col">
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<div class="maxl" th:if="${patient.p_gender} == 'male'">
+										<label class="radio inline"> <input type="radio"
+											name="p_gender" id="p_gender" value="male" checked> <span>
+												Male </span>
+										</label> <label class="radio inline"> <input type="radio"
+											name="p_gender" id="p_gender" value="female"> <span>Female
+										</span>
+										</label>
+									</div>
+									<div class="maxl" th:if="${patient.p_gender} == 'female'">
+										<label class="radio inline"> <input type="radio"
+											name="p_gender" id="p_gender" value="male" checked> <span>
+												Male </span>
+										</label> <label class="radio inline"> <input type="radio"
+											name="p_gender" id="p_gender" value="female" checked>
+											<span>Female </span>
+										</label>
+									</div>
+								</div>
+
+								<div class="input-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+									<input th:value="${#dates.format(patient.date_of_birth, 'yyyy-MM-dd')}" onfocus="(this.type='date')" onblur="(this.type='text')"
+										type="text" id="dateofbirth" name="dateofbirth"
+										placeholder="Date of Birth (mm/dd/yyyy)" class="form-control">
+								</div>
+								
+								<div class="form-group mt-4">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+										<img style="width: 170px; height: 170px;"
+											th:src="@{'/patients/'+${patient.p_photo}}"
+											th:alt="${patient.p_name}" /> &nbsp;&nbsp;&nbsp;&nbsp; <input
+											type="file" id="image" name="image" class="form-control">
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="form-group mt-4">
+							<textarea th:text="${patient.p_info}" name="p_info" id="p_info"
+								class="form-control" rows="5"></textarea>
+						</div>
+
+						<div class="container text-center mt-4">
+							<button type="submit" class="btn btn-outline-primary">Update
+								Info</button>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<button type="reset" class="btn btn-outline-danger">Clear</button>
+						</div>
+
+					</form>
+					<!--  </div> -->
+
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			var msg = document.getElementById("msg");
+
+			let intervalId = setTimeout(hide, 3000);
+
+			function hide() {
+				msg.style.display = 'none';
+
+			}
+
+			clearTimeout(intervalID);
+		</script>
+
+
+	</section>
+</body>
+</html>
