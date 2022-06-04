@@ -142,6 +142,14 @@ public class patientDashboard {
 			long ServiceCount = this.appointmentRepo.countServiceByPatId(p.getId());
 
 			List<Map<String, Integer>> ser = this.appointmentRepo.serCountByPatIdandDate(p.getId());
+			
+			List<Map<Integer, Integer>> app = this.appointmentRepo.appCountWithDateforPatient(p.getId());
+
+			List<Object> totalAppMonth = new ArrayList<Object>();
+
+			for (Map<Integer, Integer> m : app) {
+				totalAppMonth.add(m.get("total"));
+			}
 
 			List<Object> serName = new ArrayList<Object>();
 			List<Object> totalSer = new ArrayList<Object>();
@@ -160,6 +168,7 @@ public class patientDashboard {
 			model.addAttribute("serviceCount", ServiceCount);
 			model.addAttribute("serName", serName);
 			model.addAttribute("totalSer", totalSer);
+			model.addAttribute("totalAppointment", totalAppMonth);
 		}
 		return "patient/patient";
 	}
@@ -416,4 +425,22 @@ public class patientDashboard {
 		}
 		return "redirect:/patient/changePassword";
 	}
+	
+	@RequestMapping("/cancleAppointment/{appointmentId}")
+	public String CancleAppointment(@PathVariable("appointmentId") int id,  HttpSession session) {
+		try {
+			Appointment ap = this.appointmentRepo.findById(id);
+			ap.setHospitalServiceDoctor(null);
+			ap.setPatient(null);
+            this.appointmentRepo.delete(ap);
+            session.setAttribute("msg", new ResponseDto("Appointment Successfully Cancled !!", "success"));
+        } catch (Exception e) {
+            e.printStackTrace();
+			session.setAttribute("msg", new ResponseDto("Something went wrong!!", "danger"));
+        }
+		return "redirect:/patient/appointmentStatus/"+0;
+	}
+	
+	
+	
 }

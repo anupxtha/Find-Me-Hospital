@@ -59,6 +59,8 @@ public class searchHospitals_2 {
 
 		model.addAttribute("hospitalList", o);
 		model.addAttribute("searchService", service);
+		
+		System.out.println(o);
 
 		// model.addAttribute( "serviceList" ,this.serviceService.getService());
 

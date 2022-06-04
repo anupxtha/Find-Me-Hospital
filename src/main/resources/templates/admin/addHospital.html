@@ -154,7 +154,7 @@
 		                                <select name="city" id="city" class="form-control font-weight-bold text-uppercase"  required
 												oninvalid="this.setCustomValidity('Please Enter City Name of Hospital.')"
 												oninput="setCustomValidity('')">
-		                                    <option selected disabled>Select Hospital Permanent City...</option>
+		                                    <option selected value="" disabled>Select Hospital Permanent City...</option>
 		                                    <option th:each="n : ${city}" th:value="${n.getId()}">
 		                                        <span th:text="${n.getName()}"></span>
 		                                    </option>

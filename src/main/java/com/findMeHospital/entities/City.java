@@ -17,11 +17,12 @@ public class City {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Column(unique = true)
     private String name;
 
     @Lob
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
     private Country country;
 }

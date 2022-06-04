@@ -105,7 +105,6 @@
 	margin-bottom: 100px;
 	max-width: 600px;
 	height: 400px;
-	
 }
 
 #login .container #login-row #login-column #login-box #login-form {
@@ -118,6 +117,16 @@
 }
 </style>
 
+
+		<div th:if="${session.msg}" id="msg" class="container mt-4"
+			style="text-align: center; width: 500px; margin-left: auto; margin-right: auto;">
+			<div th:classappend="${'alert-'+ session.msg.type}" class="alert"
+				role="alert">
+				<span th:text="${session.msg.message}"></span>
+			</div>
+			<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+		</div>
+
 		<div id="login" class="mt-4 mb-5">
 			<h3 class="text-center text-white pt-5">Login form</h3>
 			<div class="container">
@@ -126,29 +135,35 @@
 					<div id="login-column" class="col-md-6">
 						<div id="login-box" class="col-md-12">
 
-							<form th:action="@{/patient/signin}" method="post" class="login-form">
+
+
+							<form th:action="@{/patient/signin}" method="post"
+								class="login-form">
 								<h1>Login</h1>
-								
+
+
 								<div th:if="${param.error}" class="alert alert-danger">
-									Invalid Username and Password
+									Invalid Username and Password</div>
+
+								<div class="txtb">
+									<input type="text" name="username" id="username"> <span
+										data-placeholder="Username" ></span>
 								</div>
 
 								<div class="txtb">
-									<input type="text" name="username" id="username"> <span data-placeholder="Username"></span>
-								</div>
-
-								<div class="txtb">
-									<input type="password"  name="password" id="password"> <span
+									<input type="password" name="password" id="password"> <span
 										data-placeholder="Password"></span>
 								</div>
 
-								<input type="submit" class="logbtn" value="login">
+								<button type="submit" class="logbtn" value="login" >Login</button>
 
 								<div class="bottom-text">
 
-									<h6>To Register New Account as Patient</h6> 
-									<a th:href="@{/signup}"><h6>Signup</h6></a>
+									<h6>To Register New Account as Patient</h6>
 
+									<a th:href="@{/signup}"><h5>Signup</h5></a> 
+									<a
+										th:href="@{/forgetPassword}"><h6>Forget Password</h6></a>
 								</div>
 
 							</form>
@@ -156,7 +171,7 @@
 					</div>
 				</div>
 			</div>
-		</div>	
+		</div>
 
 		<script type="text/javascript">
 			$(".txtb input").on("focus", function() {
@@ -168,6 +183,16 @@
 				if ($(this).val() == "")
 					$(this).removeClass("focus");
 			});
+
+			$(document).ready(function() {
+
+				let intervalId = setTimeout(hide, 3000);
+
+				function hide() {
+					$('#msg').css('display', 'none');
+				}
+
+			})
 		</script>
 		<!-- <style>
 			#login .container #login-row #login-column #login-box {

@@ -19,6 +19,7 @@ public class Patient {
 
     private String p_name;
 
+//    @Column(unique=true)
     private String p_email;
 
     private String p_password;
@@ -27,6 +28,7 @@ public class Patient {
 
     private Date date_of_birth;
 
+//    @Column(unique=true)
     private String p_contact;
 
     private String address;
@@ -38,7 +40,7 @@ public class Patient {
     
     private String role;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
     private City city;
 
 }

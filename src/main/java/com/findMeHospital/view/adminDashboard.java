@@ -196,7 +196,7 @@ public class adminDashboard {
 	@RequestMapping("/viewService/{page}")
 	public String viewService(@PathVariable("page") Integer page, Model model) {
 
-		Pageable pageable = PageRequest.of(page, 7);
+		Pageable pageable = PageRequest.of(page, 4);
 
 		Page<Service> s = this.serviceRepo.findAllServices(pageable);
 

@@ -149,6 +149,175 @@ input[type="checkbox"].switch_1:after {
 input[type="checkbox"].switch_1:checked:after {
 	left: calc(100% - 1.5em);
 }
+
+/*[404 error page]
+--------------------------*/
+.error-content {
+	padding: 0 0 70px;
+}
+
+.error-text {
+	text-align: center;
+}
+
+.error {
+	font-size: 80px;
+	font-weight: 100;
+}
+
+.im-sheep {
+	display: inline-block;
+	position: relative;
+	font-size: 1em;
+	margin-bottom: 70px;
+}
+
+.im-sheep * {
+	transition: transform 0.3s;
+}
+
+.im-sheep .top {
+	position: relative;
+	top: 0;
+	animation: bob 1s infinite;
+}
+
+.im-sheep:hover .head {
+	transform: rotate(0deg);
+}
+
+.im-sheep:hover .head .im-eye {
+	width: 1.25em;
+	height: 1.25em;
+}
+
+.im-sheep:hover .head .im-eye:before {
+	right: 30%;
+}
+
+.im-sheep:hover .top {
+	animation-play-state: paused;
+}
+
+.im-sheep .head {
+	display: inline-block;
+	width: 5em;
+	height: 5em;
+	border-radius: 100%;
+	background: #253858;
+	vertical-align: middle;
+	position: relative;
+	top: 1em;
+	transform: rotate(30deg);
+}
+
+.im-sheep .head:before {
+	content: '';
+	display: inline-block;
+	width: 80%;
+	height: 50%;
+	background: #253858;
+	position: absolute;
+	bottom: 0;
+	right: -10%;
+	border-radius: 50% 40%;
+}
+
+.im-sheep .head:hover .im-ear.one, .im-sheep .head:hover .im-ear.two {
+	transform: rotate(0deg);
+}
+
+.im-sheep .head .im-eye {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	border-radius: 100%;
+	background: white;
+	position: absolute;
+	overflow: hidden;
+}
+
+.im-sheep .head .im-eye:before {
+	content: '';
+	display: inline-block;
+	background: black;
+	width: 50%;
+	height: 50%;
+	border-radius: 100%;
+	position: absolute;
+	right: 10%;
+	bottom: 10%;
+	transition: all 0.3s;
+}
+
+.im-sheep .head .im-eye.one {
+	right: -2%;
+	top: 1.7em;
+}
+
+.im-sheep .head .im-eye.two {
+	right: 2.5em;
+	top: 1.7em;
+}
+
+.im-sheep .head .im-ear {
+	background: #253858;
+	width: 50%;
+	height: 30%;
+	border-radius: 100%;
+	position: absolute;
+}
+
+.im-sheep .head .im-ear.one {
+	left: -10%;
+	top: 5%;
+	transform: rotate(-30deg);
+}
+
+.im-sheep .head .im-ear.two {
+	top: 2%;
+	right: -5%;
+	transform: rotate(20deg);
+}
+
+.im-sheep .body {
+	display: inline-block;
+	width: 7em;
+	height: 7em;
+	border-radius: 100%;
+	background: #0054D1;
+	position: relative;
+	vertical-align: middle;
+	margin-right: -3em;
+}
+
+.im-sheep .im-legs {
+	display: inline-block;
+	position: absolute;
+	top: 80%;
+	left: 10%;
+	z-index: -1;
+}
+
+.im-sheep .im-legs .im-leg {
+	display: inline-block;
+	background: #141214;
+	width: 0.5em;
+	height: 2.5em;
+	margin: 0.2em;
+}
+
+.im-sheep::before {
+	left: 0;
+	content: '';
+	display: inline-block;
+	position: absolute;
+	top: 112%;
+	width: 100%;
+	height: 18%;
+	border-radius: 100%;
+	background: rgba(0, 0, 0, 0.2);
+}
 </style>
 
 		<div style="float: left;" class="mt-5 ml-5 mb-1">
@@ -157,52 +326,87 @@ input[type="checkbox"].switch_1:checked:after {
 				class="ml-2">Avaiable Services</h1>
 		</div>
 
-		<div style="width: 400px; float: right;" class="mt-5 mr-5 mb-1">
-			<div class="input-group">
-				<input id="ServiceName" type="text" class="form-control"
-					name="search" placeholder="Search Services..."> <span
-					class="input-group-btn">
-					<button id="search" class="btn btn-default" type="button">
-						<span class="fa fa-search"></span>
-					</button>
-				</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>
-					<input id="sort" title="Sort By Name" type="checkbox"
-					class="switch_1" name="sort">
-				</span>
+		<div th:if="${!servicesList.isEmpty()}">
+			<div style="width: 400px; float: right;" class="mt-5 mr-5 mb-1">
+				<div class="input-group">
+					<input id="ServiceName" type="text" class="form-control"
+						name="search" placeholder="Search Services..."> <span
+						class="input-group-btn">
+						<button id="search" class="btn btn-default" type="button">
+							<span class="fa fa-search"></span>
+						</button>
+					</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>
+						<input id="sort" title="Sort By Name" type="checkbox"
+						class="switch_1" name="sort">
+					</span>
+				</div>
 			</div>
-		</div>
-
-		<article id='post-container'>
-			<div class="container-fluid px-5 py-5 mx-auto" style="clear: both;">
-				<div class="row justify-content-between px-3">
-					<div th:each="n : ${servicesList}" class="block text-center mb-5">
-						<img class="image" th:src="@{'/services/'+${n.s_image}}"
-							th:alt="${n.s_name}">
-						<div class="info py-2 px-2">
-							<div class="row px-3">
-								<div class="buttons">
-									<button type="button" class="btn btn-primary buttons1"
-										data-toggle="modal" data-target="#exampleModal"
-										th:onclick="|showPop(${n.id})|">Details</button>
-									<a th:href="@{'/ServiceOfHospital/'+${n.id}}"
-										style="text-decoration: none; color: black;"><div
-											class="buttons2">View Hospital</div></a>
+	
+			<article id='post-container'>
+				<div class="container-fluid px-5 py-5 mx-auto" style="clear: both;">
+					<div class="row justify-content-between px-3">
+						<div th:each="n : ${servicesList}" class="block text-center mb-5">
+							<img class="image" th:src="@{'/services/'+${n.s_image}}"
+								th:alt="${n.s_name}">
+							<div class="info py-2 px-2">
+								<div class="row px-3">
+									<div class="buttons">
+										<button type="button" class="btn btn-primary buttons1"
+											data-toggle="modal" data-target="#exampleModal"
+											th:onclick="|showPop(${n.id})|">Details</button>
+										<a th:href="@{'/ServiceOfHospital/'+${n.id}}"
+											style="text-decoration: none; color: black;"><div
+												class="buttons2">View Hospital</div></a>
+									</div>
 								</div>
-							</div>
-							<div class="text-left">
-								<h5
-									style="font-family: 'Lucida Console', Courier, monospace; font-weight: bold;"
-									class="mb-1 mt-2" th:text="${n.s_name}"></h5>
-								<small
-									style="font-family: 'Lucida Console', Courier, monospace;"
-									th:text="${#strings.abbreviate(n.s_description,37)}"></small>
+								<div class="text-left">
+									<h5
+										style="font-family: 'Lucida Console', Courier, monospace; font-weight: bold;"
+										class="mb-1 mt-2" th:text="${n.s_name}"></h5>
+									<small
+										style="font-family: 'Lucida Console', Courier, monospace;"
+										th:text="${#strings.abbreviate(n.s_description,37)}"></small>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</article>
+		</div>
+		
+		<div th:if="${servicesList.isEmpty()}" class="error-content" style="clear: both;">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 ">
+						<div class="error-text">
+							<h1 class="error">No Records Found</h1>
+							<div class="im-sheep">
+								<div class="top">
+									<div class="body"></div>
+									<div class="head">
+										<div class="im-eye one"></div>
+										<div class="im-eye two"></div>
+										<div class="im-ear one"></div>
+										<div class="im-ear two"></div>
+									</div>
+								</div>
+								<div class="im-legs">
+									<div class="im-leg"></div>
+									<div class="im-leg"></div>
+									<div class="im-leg"></div>
+									<div class="im-leg"></div>
+								</div>
+							</div>
+							<h4>Oops! Please Try after Data are loaded !!</h4>
+							<a th:href="@{/}" class="btn btn-primary btn-round">Go
+								to HomePage</a>
+							
+						</div>
+					</div>
+				</div>
 			</div>
-		</article>
-
+		</div>
+		
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div id="details" class="modal-dialog" role="document"></div>

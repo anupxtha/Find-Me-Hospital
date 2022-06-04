@@ -20,8 +20,10 @@ public class Doctor {
 
     private String d_name;
 
+    @Column(unique = true)
     private String d_email;
 
+    @Column(unique = true)
     private String d_contact;
 
     private String d_gender;
@@ -41,10 +43,10 @@ public class Doctor {
 
     private String d_photo;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
     private City city;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
     private Room room;
 
 }

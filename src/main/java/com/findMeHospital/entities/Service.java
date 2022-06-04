@@ -18,6 +18,7 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Column(unique = true)
     private String s_name;
 
     @Lob

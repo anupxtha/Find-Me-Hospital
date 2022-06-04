@@ -50,14 +50,6 @@ public class SecurityConfigss extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.antMatcher("/patient/**")
-//		.authorizeRequests().anyRequest().authenticated()
-//		.and().formLogin().loginPage("/patient/signin")
-//			.defaultSuccessUrl("/patient", true)
-//		.permitAll()
-//		.and().logout().logoutUrl("/patient/logout").logoutSuccessUrl("/patient/signin");
-//	
-//	http.csrf().disable();
     	
     	http.requestMatchers().antMatchers("/patient/**")
         .and()
@@ -69,6 +61,15 @@ public class SecurityConfigss extends WebSecurityConfigurerAdapter {
 	.and().logout().logoutUrl("/patient/logout").logoutSuccessUrl("/patient/signin");
     	http.csrf().disable();
     	
+    	
+//      http.antMatcher("/patient/**")
+//		.authorizeRequests().anyRequest().authenticated()
+//		.and().formLogin().loginPage("/patient/signin")
+//			.defaultSuccessUrl("/patient", true)
+//		.permitAll()
+//		.and().logout().logoutUrl("/patient/logout").logoutSuccessUrl("/patient/signin");
+//	
+//	http.csrf().disable();
     }
 
 }

@@ -147,6 +147,15 @@ public class hospitalDashboard {
 
 			List<Map<String, Integer>> ser = this.appointmentRepo.serCountByHosIdandDate(h.getId());
 
+			List<Map<Integer, Integer>> app = this.appointmentRepo.appCountWithDateforHospital(h.getId());
+
+			List<Object> totalAppMonth = new ArrayList<Object>();
+
+			for (Map<Integer, Integer> m : app) {
+				totalAppMonth.add(m.get("total"));
+			}
+
+			
 			List<Object> serName = new ArrayList<Object>();
 			List<Object> totalSer = new ArrayList<Object>();
 
@@ -165,6 +174,7 @@ public class hospitalDashboard {
 			model.addAttribute("totalPatient", patientCount);
 			model.addAttribute("serName", serName);
 			model.addAttribute("totalSer", totalSer);
+			model.addAttribute("totalAppHospital", totalAppMonth);
 
 		}
 
@@ -348,7 +358,7 @@ public class hospitalDashboard {
 		return "redirect:/hospital/addRoom";
 	}
 
-	// Posting Hospital ////////////////////
+	// Posting Doctor ////////////////////
 	@RequestMapping(value = "/postDoctor", method = RequestMethod.POST)
 	public String postDoctor(@ModelAttribute("doctor") Doctor doctor, Principal principal,
 			@RequestParam("service") int service,
@@ -393,7 +403,7 @@ public class hospitalDashboard {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("msg", new ResponseDto("Something went wrong!!", "danger"));
+			session.setAttribute("msg", new ResponseDto("Doctor with Email Already Exist!!", "danger"));
 		}
 
 		return "redirect:/hospital/addDoctor";
@@ -593,13 +603,19 @@ public class hospitalDashboard {
 	}
 	
 	@RequestMapping("/deleteDoctor/{Id}")
-	public String DeleteDoctor(@PathVariable("Id") int id,  HttpSession session) {
+	public String DeleteDoctor(@PathVariable("Id") int id,  HttpSession session, Principal principal) {
 		try {
+			String userName = principal.getName();
+
+			Hospital h = this.hospitalRepo.getHospitalByUserName(userName);
+			
 			Doctor d = this.doctorService.getDoctorById(id);
 			d.setRoom(null);
 			d.setCity(null);
-			
-			this.doctorService.deleteDoctor(id);
+
+		    HospitalServiceDoctor hsd =	this.hospitalServiceDoctorRepo.getOnlyHSDByHosIdSerIdDocId(h.getId(), d.getNmc_no());
+			this.hospitalServiceDoctorSevice.deleteHospitalServiceDoctor(hsd.getId());
+		    this.doctorService.deleteDoctor(id);
             session.setAttribute("msg", new ResponseDto("Doctor Successfully Deleted !!", "success"));
         } catch (Exception e) {
             e.printStackTrace();

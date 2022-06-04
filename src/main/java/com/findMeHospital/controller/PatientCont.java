@@ -51,20 +51,6 @@ public class PatientCont {
         Patient p = null;
 
         try {
-//        	, @RequestParam("profile") MultipartFile file
-//            if(file.isEmpty()){
-//
-//            }
-//            else{
-//                patient.setP_photo(file.getOriginalFilename());
-//
-//                File saveFile = new ClassPathResource("static/patients").getFile();
-//
-//                Path path = Paths.get(saveFile.getAbsolutePath()+File.separator+file.getOriginalFilename());
-//
-//                Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-//
-//            }
 
             p = this.patientService.addPatient(patient);
 

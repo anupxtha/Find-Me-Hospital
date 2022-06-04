@@ -33,12 +33,12 @@ public class Appointment {
 
     private int a_status;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
     private Patient patient;
     
     private Boolean viewed;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
     private HospitalServiceDoctor hospitalServiceDoctor;
 
 }

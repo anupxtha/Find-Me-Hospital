@@ -43,15 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.antMatcher("/hospital/**")
-//		.authorizeRequests().anyRequest().authenticated()
-//		.and().formLogin().loginPage("/hospital/login")
-//			.defaultSuccessUrl("/hospital", true)
-//		.permitAll()
-//		.and().logout().logoutUrl("/hospital/logout").logoutSuccessUrl("/hospital/login");
-//	
-//	http.csrf().disable();
-    	
+
     	http.requestMatchers().antMatchers("/hospital/**")
         .and()
         .authorizeRequests()
@@ -61,7 +53,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	.permitAll()
 	.and().logout().logoutUrl("/hospital/logout").logoutSuccessUrl("/hospital/login");
     	http.csrf().disable();
+    	
+//      http.antMatcher("/hospital/**")
+//		.authorizeRequests().anyRequest().authenticated()
+//		.and().formLogin().loginPage("/hospital/login")
+//			.defaultSuccessUrl("/hospital", true)
+//		.permitAll()
+//		.and().logout().logoutUrl("/hospital/logout").logoutSuccessUrl("/hospital/login");
+//	
+//	http.csrf().disable();
+  	
     }
+    
+    
     
 //    .failureUrl("/accessdenied")
 

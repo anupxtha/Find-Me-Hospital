@@ -29,6 +29,9 @@ public interface HospitalServiceDoctorRepo extends CrudRepository<HospitalServic
     @Query("select u from HospitalServiceDoctor u where u.hospital.id= :hId AND u.service.id = :sId AND u.doctor.nmc_no = :dId")
     public List<HospitalServiceDoctor> getHSDByHosIdSerIdDocId( @Param("hId") int hId, @Param("sId") int sId, @Param("dId") int dId);
     
+    @Query("select u from HospitalServiceDoctor u where u.hospital.id= :hId AND u.doctor.nmc_no = :dId")
+    public HospitalServiceDoctor getOnlyHSDByHosIdSerIdDocId( @Param("hId") int hId, @Param("dId") int dId);
+    
     @Query("SELECT count(distinct(u.service)) FROM HospitalServiceDoctor u WHERE u.hospital.id = :hId")
     public long countServiceByHospital(@Param("hId") int hId);
    

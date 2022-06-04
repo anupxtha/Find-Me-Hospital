@@ -71,6 +71,8 @@
 		<input id="serName"
 			type="text" th:value="${serName}" hidden /> <input id="totalSer"
 			type="text" th:value="${totalSer}" hidden />
+			<input id="totalAppHospital" type="text"
+			th:value="${totalAppHospital}" hidden /> 
 	
 		<div class="container">
 			<div class="row">
@@ -170,12 +172,13 @@
 					'-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 			Chart.defaults.global.defaultFontColor = '#858796';
 		
+			var totalApp = JSON.parse("[" + $("#totalAppHospital").val() + "]");
 			var serName = $("#serName").val().slice(1,-1);
 			var totalSer = JSON.parse($("#totalSer").val());
 			
 			console.log(serName.split(','))
 			console.log(totalSer)
-			
+			console.log(totalApp)
 			
 			var ctx = document.getElementById("myPieChart");
 			var myPieChart = new Chart(ctx, {
@@ -246,7 +249,7 @@
 									"Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
 									"Dec" ],
 							datasets : [ {
-								label : "Earnings",
+								label : "Total Appointment",
 								lineTension : 0.3,
 								backgroundColor : "rgba(78, 115, 223, 0.05)",
 								borderColor : "rgba(78, 115, 223, 1)",
@@ -258,9 +261,7 @@
 								pointHoverBorderColor : "rgba(78, 115, 223, 1)",
 								pointHitRadius : 10,
 								pointBorderWidth : 2,
-								data : [ 0, 20000, 5000, 15000, 10000, 20000,
-										15000, 25000, 20000, 30000, 25000,
-										40000 ],
+								data : totalApp[0],
 							} ],
 						},
 						options : {
@@ -293,7 +294,7 @@
 										// Include a dollar sign in the ticks
 										callback : function(value, index,
 												values) {
-											return '$' + number_format(value);
+											return number_format(value);
 										}
 									},
 									gridLines : {
@@ -327,7 +328,7 @@
 										var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label
 												|| '';
 										return datasetLabel
-												+ ': $'
+												+ ' : '
 												+ number_format(tooltipItem.yLabel);
 									}
 								}

@@ -20,21 +20,26 @@ public class Hospital {
     private int id;
 
     private String h_name;
-
+    
+    @Column(unique = true)
     private String h_email;
 
     private String h_password;
 
+    @Column(unique = true)
     private String h_contact;
 
+    @Column(unique = true)
     private String emergency_contact;
 
     private Date established;
 
     private String certified_by;
 
+    @Column(unique = true)
     private String fax;
 
+    @Column(unique = true)
     private String gpo_box;
 
     private String address;
@@ -46,7 +51,7 @@ public class Hospital {
     
     private String role;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
     private City city;
 
 
